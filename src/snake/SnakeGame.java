@@ -9,4 +9,9 @@ public class SnakeGame
         
     }
     
+    public static void resetGame()
+    {
+        
+    }
+    
 }
