@@ -5,7 +5,7 @@
  */
 package snake;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  *
@@ -16,7 +16,17 @@ abstract public class SnakeBody
     SnakeSegment child;
     public int direction;
     protected Point pos;
+    public Color color = Color.BLACK;
     boolean hasChild = false;
+    
+    public void draw(SnakeView s, Graphics g)
+    {
+        s.setTile(g, color, pos.x, pos.y);
+        if (hasChild)
+        {
+            child.draw(s, g);
+        }
+    }
     
     public void move()
     {
