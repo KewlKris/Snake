@@ -17,10 +17,11 @@ abstract public class SnakeBody
 {
     SnakeSegment child;
     public int direction;
-    protected Point pos;
+    protected Point pos = new Point(0,0);
     public Color color = Color.BLACK;
     boolean hasChild = false;
     boolean delayed;
+    public int number;
     
     public void draw(SnakeView s, Graphics g)
     {
@@ -93,6 +94,6 @@ abstract public class SnakeBody
         {
             child.arrayCheck();
         }
-        collisions[y][x] = 1;
+        collisions[y][x] += number;
     }
 }
