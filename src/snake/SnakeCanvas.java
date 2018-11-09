@@ -1,7 +1,8 @@
 package snake;
-
+//This comment was made by the Abhishek Choudhury gang
 import java.awt.*;
 import java.awt.event.*;
+import java.applet.Applet.*;
 
 public class SnakeCanvas extends Canvas
 {
