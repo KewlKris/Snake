@@ -27,7 +27,6 @@ public class SnakeGame
     public static void tick()
     {
         snake1.move();
-        System.out.println(snake1.pos);
     }
     
     public static void resetGame()
