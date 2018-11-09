@@ -18,6 +18,7 @@ abstract public class SnakeBody
     protected Point pos;
     public Color color = Color.BLACK;
     boolean hasChild = false;
+    boolean delayed;
     
     public void draw(SnakeView s, Graphics g)
     {
@@ -30,6 +31,12 @@ abstract public class SnakeBody
     
     public void move()
     {
+        if (delayed)
+        {
+            delayed = false;
+            return;
+        }
+        
         if (hasChild)
         {
             child.move();
@@ -52,10 +59,23 @@ abstract public class SnakeBody
                 break;
         }
     }
-    public void addChild(SnakeSegment c)
+    public void setChild(SnakeSegment c)
     {
         hasChild = true;
         child = c;
+    }
+    
+    public void appendChild()
+    {
+        if (hasChild)
+        {
+            child.appendChild();
+            return;
+        }
+        
+        SnakeSegment c = new SnakeSegment(this, true);
+        setChild(c);
+        
     }
     
     public void assumeDirection()

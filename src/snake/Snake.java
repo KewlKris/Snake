@@ -19,7 +19,5 @@ public class Snake
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         SnakeFrame f = new SnakeFrame();
         f.setVisible(true);
-        
-        SnakeGame.startGame();
     }
 }

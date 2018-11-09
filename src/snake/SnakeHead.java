@@ -10,6 +10,6 @@ public class SnakeHead extends SnakeBody
     {
         super.pos = p;
         super.direction = d;
-        
+        super.delayed = false;
     }
 }
