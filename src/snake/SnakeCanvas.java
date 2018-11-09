@@ -21,33 +21,7 @@ public class SnakeCanvas extends Canvas
         {
             //System.out.println(e.getKeyChar());
             //System.out.println(e.getExtendedKeyCode());
-            
-            switch(e.getKeyCode())
-            {
-                case KeyEvent.VK_UP:
-                    if (SnakeGame.snake1.direction == SnakeHead.DOWN)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.UP;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if (SnakeGame.snake1.direction == SnakeHead.UP)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.DOWN;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    if (SnakeGame.snake1.direction == SnakeHead.RIGHT)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.LEFT;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if (SnakeGame.snake1.direction == SnakeHead.LEFT)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.RIGHT;
-                    break;
-                case KeyEvent.VK_ADD:
-                    SnakeGame.snake1.appendChild();
-                    break;
-            }
+            SnakeGame.keyPresed(e);
         }
         public void keyReleased(KeyEvent e) {}
         public void keyTyped(KeyEvent e) {}

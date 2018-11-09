@@ -87,6 +87,7 @@ public class SnakeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        startButton.setEnabled(false);
         frame_canvas.requestFocus();
         SnakeGame.startGame();
         
@@ -136,6 +137,6 @@ public class SnakeFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JButton startButton;
+    public javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
