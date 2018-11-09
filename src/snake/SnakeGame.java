@@ -13,6 +13,9 @@ public class SnakeGame
     {
         //Create snakes
         snake1 = new SnakeHead(new Point(32, 18), SnakeHead.LEFT);
+        //SnakeSegment s1 = new SnakeSegment(snake1, true);
+        //snake1.setChild(s1);
+        snake1.appendChild();
         
         gameInProgress = true;
         timer = new SnakeTimer();

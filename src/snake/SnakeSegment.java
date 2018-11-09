@@ -9,7 +9,7 @@ public class SnakeSegment extends SnakeBody
     public SnakeSegment(SnakeBody p, boolean delayed)
     {
         parent = p;
-        super.pos = p.pos;
+        super.pos = (Point)p.pos.clone();
         super.direction = p.direction;
         super.delayed = delayed;
     }
