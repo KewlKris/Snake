@@ -10,6 +10,7 @@ public class SnakeGame
     public static SnakeHead snake1;
     public static SnakeView view = new SnakeView(new Point(40, 40));
     public static int[][] collisions = new int[36][64];
+    public static SnakeFood food;
     
     public static void startGame()
     {
@@ -24,20 +25,25 @@ public class SnakeGame
         gameInProgress = true;
         timer = new SnakeTimer();
         timer.execute();
+        
+        food = new SnakeFood();
+    }
+    
+    public static void updateArray()
+    {
+        collisions = new int[collisions.length][collisions[0].length];
+        snake1.arrayCheck();
     }
     
     public static void drawEntities(Graphics g)
     {
         snake1.draw(view, g);
+        food.draw(view, g);
     }
     
     public static void tick()
     {
         snake1.move();
-        snake1.arrayCheck();
-        for (int i = 0; i < collisions.length; i++) {
-            System.out.println(Arrays.toString(collisions[i]));
-        }
     }
     
     public static void resetGame()
