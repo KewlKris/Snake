@@ -56,7 +56,7 @@ public class SnakeGame
             return;
         }
         snake1.draw(view, g);
-        //food.draw(view, g);
+        food.draw(view, g);
     }
     
     public static void tick()
