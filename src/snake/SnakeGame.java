@@ -35,6 +35,9 @@ public class SnakeGame
     {
         snake1.move();
         snake1.arrayCheck();
+        for (int i = 0; i < collisions.length; i++) {
+            System.out.println(Arrays.toString(collisions[i]));
+        }
     }
     
     public static void resetGame()

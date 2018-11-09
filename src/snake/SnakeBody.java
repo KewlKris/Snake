@@ -91,13 +91,8 @@ abstract public class SnakeBody
         int y = pos.y;
         if(hasChild)
         {
-            x = child.pos.x;
-            y = child.pos.y;
             child.arrayCheck();
         }
         collisions[y][x] = 1;
-        for (int i = 0; i < collisions.length; i++) {
-            System.out.println(Arrays.toString(collisions[i]));
-        }
     }
 }
