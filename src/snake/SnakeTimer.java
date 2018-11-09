@@ -5,7 +5,7 @@ import java.time.Instant;
 
 public class SnakeTimer extends SwingWorker<Void, Void>
 {
-    public static final float TICKRATE = 0.05f; //Time in seconds
+    public static final float TICKRATE = 0.1f; //Time in seconds
     
     public Void doInBackground()
     {
