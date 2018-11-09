@@ -47,8 +47,8 @@ public class SnakeView
         g.fillRect(
                 pos.x + (bSize * x) + inset,
                 pos.y + (bSize * y) + inset,
-                bSize - (inset*2),
-                bSize - (inset*2));
+                bSize - (inset*1), //Intentional
+                bSize - (inset*1));
     }
     
     public void drawGrid(Graphics g)
