@@ -62,4 +62,47 @@ public class SnakeHead extends SnakeBody
         }
         return false;
     }
+    
+    public void move()
+    {
+        super.move();
+        lastTickedDirection = direction;
+    }
+    
+    /**
+     * This method will change the direction of the SnakeHead
+     * if the direction is valid.
+     * @param e The KeyEvent from the KeyListener
+     * @return If the SnakeHead successfully changed direction.
+     */
+    public boolean changeDirection(KeyEvent e)
+    {
+        switch(e.getKeyCode())
+        {
+            case KeyEvent.VK_UP:
+                if (lastTickedDirection == DOWN)
+                    break;
+                direction = UP;
+                return true;
+            case KeyEvent.VK_DOWN:
+                if (lastTickedDirection == UP)
+                    break;
+                direction = DOWN;
+                return true;
+            case KeyEvent.VK_LEFT:
+                if (lastTickedDirection == RIGHT)
+                    break;
+                direction = LEFT;
+                return true;
+            case KeyEvent.VK_RIGHT:
+                if (lastTickedDirection == LEFT)
+                    break;
+                direction = RIGHT;
+                return true;
+            case KeyEvent.VK_ADD:
+                appendChild();
+                break;
+        }
+        return false;
+    }
 }
