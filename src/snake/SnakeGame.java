@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Arrays;
 
 public class SnakeGame
@@ -10,7 +11,7 @@ public class SnakeGame
     public static SnakeHead snake1;
     public static SnakeView view = new SnakeView(new Point(40, 40));
     public static int[][] collisions = new int[36][64];
-    public static SnakeFood food;
+    //public static SnakeFood food;
     
     public static void startGame()
     {
@@ -26,7 +27,7 @@ public class SnakeGame
         timer = new SnakeTimer();
         timer.execute();
         
-        food = new SnakeFood();
+        //food = new SnakeFood();
     }
     
     public static void updateArray()
@@ -35,10 +36,23 @@ public class SnakeGame
         snake1.arrayCheck();
     }
     
+    /**
+    * This method is to be called when the game needs to handle a key press.
+    * @param e The KeyEvent from the KeyListener
+    */
+    public static void keyPresed(KeyEvent e)
+    {
+        snake1.changeDirection(e);
+    }
+    
+    /**
+     * This method is to be called when the grid needs to be updated.
+     * @param g The Graphics object on which to draw the grid onto.
+     */
     public static void drawEntities(Graphics g)
     {
         snake1.draw(view, g);
-        food.draw(view, g);
+        //food.draw(view, g);
     }
     
     public static void tick()
