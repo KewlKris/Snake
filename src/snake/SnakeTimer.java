@@ -14,7 +14,7 @@ public class SnakeTimer extends SwingWorker<Void, Void>
             Instant start = Instant.now();
             while(((float)(Instant.now().toEpochMilli() - start.toEpochMilli()) / 1000f) < TICKRATE)
             {
-                
+                //Delay
             }
             SnakeGame.tick();
         }
