@@ -2,7 +2,6 @@ package snake;
 //This comment was made by the Abhishek Choudhury gang
 import java.awt.*;
 import java.awt.event.*;
-import java.applet.Applet.*;
 
 public class SnakeCanvas extends Canvas
 {
@@ -26,15 +25,23 @@ public class SnakeCanvas extends Canvas
             switch(e.getKeyCode())
             {
                 case KeyEvent.VK_UP:
+                    if (SnakeGame.snake1.direction == SnakeHead.DOWN)
+                        break;
                     SnakeGame.snake1.direction = SnakeHead.UP;
                     break;
                 case KeyEvent.VK_DOWN:
+                    if (SnakeGame.snake1.direction == SnakeHead.UP)
+                        break;
                     SnakeGame.snake1.direction = SnakeHead.DOWN;
                     break;
                 case KeyEvent.VK_LEFT:
+                    if (SnakeGame.snake1.direction == SnakeHead.RIGHT)
+                        break;
                     SnakeGame.snake1.direction = SnakeHead.LEFT;
                     break;
                 case KeyEvent.VK_RIGHT:
+                    if (SnakeGame.snake1.direction == SnakeHead.LEFT)
+                        break;
                     SnakeGame.snake1.direction = SnakeHead.RIGHT;
                     break;
                 case KeyEvent.VK_ADD:
