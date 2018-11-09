@@ -36,6 +36,7 @@ public class SnakeFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Snake - By Christopher Chamberlain and Abhishek Choudhury");
         setSize(new java.awt.Dimension(0, 0));
 
         startButton.setText("Start");
