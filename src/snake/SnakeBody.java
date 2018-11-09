@@ -77,7 +77,18 @@ abstract public class SnakeBody
         
         SnakeSegment c = new SnakeSegment(this, true);
         setChild(c);
-        
+    }
+    
+    /**
+     * This method adds children to the snake.
+     * @param childCount The amount of children to add.
+     */
+    public void appendChild(int childCount)
+    {
+        for(int x=0; x<childCount; x++)
+        {
+            appendChild();
+        }
     }
     
     public void assumeDirection()

@@ -7,6 +7,7 @@ import java.awt.Point;
 
 public class Snake
 {
+    public static SnakeFrame frame;
     public static void main(String[] args) throws
             ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException
@@ -17,7 +18,7 @@ public class Snake
         SnakeSettings.BLOCK_SIZE = 10;
         
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        SnakeFrame f = new SnakeFrame();
-        f.setVisible(true);
+        frame = new SnakeFrame();
+        frame.setVisible(true);
     }
 }
