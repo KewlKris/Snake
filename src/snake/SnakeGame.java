@@ -12,6 +12,7 @@ public class SnakeGame
     public static SnakeView view = new SnakeView(new Point(40, 40));
     public static int[][] collisions = new int[36][64];
     public static SnakeFood food;
+    public static int score = 0;
     
     public static void startGame()
     {
@@ -61,8 +62,8 @@ public class SnakeGame
     
     public static void tick()
     {
-        collisionCheck();
         snake1.move();
+        collisionCheck();
     }
     
     public static void resetGame()
@@ -84,11 +85,14 @@ public class SnakeGame
         food.arrayCheck();
         for (int i = 0; i < collisions.length; i++) {
             for (int j = 0; j < collisions[0].length; j++) {
-                if (collisions[i][j] == 6){
-                    snake1.appendChild();
-                    food.setFood();
+                int num = collisions[i][j];
+                if (num == 6){
+                    snake1.appendChild();food.setFood();
+                    score += 10;
                 }
             }
         }
     }
+    
+    
 }
