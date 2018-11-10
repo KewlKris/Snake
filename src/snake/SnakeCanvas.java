@@ -40,6 +40,9 @@ public class SnakeCanvas extends Canvas
                 return;
             }
         }
+        buf.setColor(this.getBackground());
+        buf.fillRect(0, 0, SnakeSettings.WINDOW_SIZE.width, SnakeSettings.WINDOW_SIZE.height);
+        
         SnakeGame.view.drawBorder(buf);
         SnakeGame.view.fillBackground(buf);
         SnakeGame.view.drawGrid(buf);
@@ -52,8 +55,10 @@ public class SnakeCanvas extends Canvas
         repaint();
     }
     
+    
     public void update(Graphics g)
     {
         paint(g);
     }
+    
 }

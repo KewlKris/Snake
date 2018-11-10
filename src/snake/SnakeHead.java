@@ -24,6 +24,30 @@ public class SnakeHead extends SnakeBody
     {
         super.move();
         lastTickedDirection = direction;
+        checkTile();
+    }
+    
+    private void checkTile()
+    {
+        try
+        {
+            switch(SnakeGame.collisions[pos.y][pos.x])
+            {
+                case SnakeID: //If it's yourself, you lose
+                    SnakeGame.stopGame();
+                    break;
+                case FoodID: //If it's food, eat it and grow
+                    SnakeGame.food.resetFood();
+                    appendChild();
+                    break;
+            }
+        } catch (NullPointerException e)
+        {
+            //Tile is empty, continue
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            SnakeGame.stopGame();
+        }
     }
     
     /**

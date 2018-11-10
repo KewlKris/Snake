@@ -16,23 +16,24 @@ public class SnakeFood {
     
     public static Point pos;
     public Color color = Color.RED;
+    boolean isEaten;
     
     public SnakeFood()
     {
-        setFood();
+        resetFood();
     }
     
-    public void setFood(){
+    public void resetFood(){
         int randx;
         int randy;
         while(true)
         {
-            randx = (int)(Math.random()*64);
-            randy = (int)(Math.random()*36);
-            SnakeGame.updateArray();
-            if(SnakeGame.collisions[randy][randx] == 0)
+            randx = (int)(Math.random()*SnakeSettings.GRID_SIZE.width);
+            randy = (int)(Math.random()*SnakeSettings.GRID_SIZE.height);
+            if(SnakeGame.collisions[randy][randx] == null)
             {
                 pos = new Point(randx,randy); 
+                isEaten = false;
                 break;
             }
         }
@@ -45,6 +46,6 @@ public class SnakeFood {
     
     public void arrayCheck()
     {
-        SnakeGame.collisions[pos.y][pos.x] += 5;
+        SnakeGame.collisions[pos.y][pos.x] = Grid.FoodID;
     }        
 }

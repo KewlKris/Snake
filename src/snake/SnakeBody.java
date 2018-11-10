@@ -62,6 +62,7 @@ abstract public class SnakeBody
                 break;
         }
     }
+    
     public void setChild(SnakeSegment c)
     {
         hasChild = true;
@@ -101,12 +102,10 @@ abstract public class SnakeBody
     {
         if (delayed)
             return;
-        int x = pos.x;
-        int y = pos.y;
+        collisions[pos.y][pos.x] = Grid.SnakeID;
         if(hasChild)
         {
             child.arrayCheck();
         }
-        collisions[y][x] += number;
     }
 }

@@ -10,8 +10,9 @@ public class SnakeGame
     private static SnakeTimer timer;
     public static SnakeHead snake1;
     public static SnakeView view = new SnakeView(new Point(40, 40));
-    public static int[][] collisions = new int[36][64];
+    public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
+    
     
     public static void startGame()
     {
@@ -29,7 +30,7 @@ public class SnakeGame
     
     public static void updateArray()
     {
-        collisions = new int[collisions.length][collisions[0].length];
+        collisions = new Grid[collisions.length][collisions[0].length];
         snake1.arrayCheck();
         if (food != null)
             food.arrayCheck();
@@ -50,20 +51,13 @@ public class SnakeGame
      */
     public static void drawEntities(Graphics g)
     {
-        try {
-            updateArray();
-        } 
-        catch (ArrayIndexOutOfBoundsException e) {
-            stopGame();
-            return;
-        }
         snake1.draw(view, g);
         food.draw(view, g);
     }
     
     public static void tick()
     {
-        collisionCheck();
+        updateArray();
         snake1.move();
     }
     
@@ -78,18 +72,5 @@ public class SnakeGame
         gameInProgress = false;
         timer.cancel(true);
         Snake.frame.startButton.setEnabled(true);
-    }
-    
-    public static void collisionCheck()
-    {
-        updateArray();
-        for (int i = 0; i < collisions.length; i++) {
-            for (int j = 0; j < collisions[0].length; j++) {
-                if (collisions[i][j] == 6){
-                    snake1.appendChild();
-                    food.setFood();
-                }
-            }
-        }
     }
 }
