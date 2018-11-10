@@ -99,6 +99,8 @@ abstract public class SnakeBody
     
     public void arrayCheck()
     {
+        if (delayed)
+            return;
         int x = pos.x;
         int y = pos.y;
         if(hasChild)

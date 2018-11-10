@@ -31,6 +31,8 @@ public class SnakeGame
     {
         collisions = new int[collisions.length][collisions[0].length];
         snake1.arrayCheck();
+        if (food != null)
+            food.arrayCheck();
     }
     
     /**
@@ -81,7 +83,6 @@ public class SnakeGame
     public static void collisionCheck()
     {
         updateArray();
-        food.arrayCheck();
         for (int i = 0; i < collisions.length; i++) {
             for (int j = 0; j < collisions[0].length; j++) {
                 if (collisions[i][j] == 6){
