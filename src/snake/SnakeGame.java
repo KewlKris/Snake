@@ -70,7 +70,7 @@ public class SnakeGame
     public static void stopGame()
     {
         gameInProgress = false;
-        timer.cancel(true);
+        timer.cancel(false);
         Snake.frame.startButton.setEnabled(true);
     }
 }

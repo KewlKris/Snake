@@ -70,4 +70,11 @@ public class SnakeView
             g.drawLine(pos.x, pos.y + y*bSize, pos.x + width*bSize, pos.y + y*bSize);
             
     }
+    
+    public void drawScore(Graphics g, int num)
+    {
+        g.setColor(Color.BLACK);
+        g.setFont(new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 12));
+        g.drawString("Score: " + Integer.toString(num), 5, 14);
+    }
 }
