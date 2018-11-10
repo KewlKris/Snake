@@ -12,6 +12,7 @@ public class SnakeGame
     public static SnakeView view = new SnakeView(new Point(40, 40));
     public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
+    public static int score = 0;
     
     
     public static void startGame()
@@ -23,6 +24,7 @@ public class SnakeGame
         //snake1.setChild(s1);
         snake1.appendChild(3);
         
+        score = 0;
         gameInProgress = true;
         timer = new SnakeTimer();
         timer.execute();

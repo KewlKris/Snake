@@ -46,6 +46,7 @@ public class SnakeCanvas extends Canvas
         SnakeGame.view.drawBorder(buf);
         SnakeGame.view.fillBackground(buf);
         SnakeGame.view.drawGrid(buf);
+        SnakeGame.view.drawScore(buf, SnakeGame.score);
         
         if (SnakeGame.gameInProgress)
         {

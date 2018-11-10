@@ -37,6 +37,7 @@ public class SnakeHead extends SnakeBody
                     SnakeGame.stopGame();
                     break;
                 case FoodID: //If it's food, eat it and grow
+                    SnakeGame.score += 10;
                     SnakeGame.food.resetFood();
                     appendChild();
                     break;
