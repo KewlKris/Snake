@@ -51,6 +51,7 @@ public class SnakeCanvas extends Canvas
         if (SnakeGame.gameInProgress)
         {
             SnakeGame.drawEntities(buf);
+            SnakeGame.drawTime(buf);
         }
         g.drawImage(frameBuffer, 0, 0, this);
         repaint();

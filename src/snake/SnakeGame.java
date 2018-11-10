@@ -3,6 +3,7 @@ package snake;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
+import java.time.Instant;
 
 public class SnakeGame
 {
@@ -13,6 +14,7 @@ public class SnakeGame
     public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
     public static int score = 0;
+    public static Instant startTime;
     
     
     public static void startGame()
@@ -25,9 +27,17 @@ public class SnakeGame
         snake1.appendChild(3);
         
         score = 0;
+        startTime = Instant.now();
         gameInProgress = true;
         timer = new SnakeTimer();
         timer.execute();
+    }
+    
+    public static void drawTime(Graphics g)
+    {
+        Instant currentTime = Instant.now();
+        int millis = (int)(currentTime.toEpochMilli() - startTime.toEpochMilli());
+        view.drawTime(g, millis);
     }
     
     public static void updateArray()

@@ -5,6 +5,7 @@ import java.awt.*;
 public class SnakeView
 {
     Point pos;
+    private static Font mainFont = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
     public SnakeView(Point p)
     {
         pos = p;
@@ -74,7 +75,18 @@ public class SnakeView
     public void drawScore(Graphics g, int num)
     {
         g.setColor(Color.BLACK);
-        g.setFont(new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 12));
-        g.drawString("Score: " + Integer.toString(num), 5, 14);
+        g.setFont(mainFont);
+        g.drawString("Score: " + Integer.toString(num), 40, 30);
+    }
+    /**
+     * Draws the time to the canvas.
+     * @param g The Graphics object
+     * @param millis The time in milliseconds
+     */
+    public void drawTime(Graphics g, int millis)
+    {
+        g.setColor(Color.BLACK);
+        g.setFont(mainFont);
+        g.drawString("Time: " + Float.toString(millis / 1000f), 550, 30);
     }
 }
