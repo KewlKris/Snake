@@ -17,6 +17,8 @@ public class SnakeGame
     public static Instant startTime;
     public static int STATUS = 1;
     
+    private static double finalTime;
+    
     public static final int WAITING_TO_START=1, IN_PROGRESS=2, GAME_LOST=3;
     
     public static void startGame()
@@ -28,6 +30,7 @@ public class SnakeGame
         //snake1.setChild(s1);
         snake1.appendChild(3);
         
+        finalTime = 0;
         score = 0;
         startTime = Instant.now();
         gameInProgress = true;
@@ -39,6 +42,11 @@ public class SnakeGame
     
     public static void drawTime(Graphics g)
     {
+        if (STATUS == GAME_LOST)
+        {
+            view.drawTime(g, finalTime);
+            return;
+        }
         try
         {
             Instant currentTime = Instant.now();
@@ -91,13 +99,16 @@ public class SnakeGame
     
     public static void lostGame()
     {
-        
+        Instant currentTime = Instant.now();
+        finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
+        STATUS = GAME_LOST;
+        stopGame();
     }
     
     public static void stopGame()
     {
         gameInProgress = false;
-        timer.cancel(false);
+        timer.cancel(true);
         Snake.frame.startButton.setEnabled(true);
     }
     

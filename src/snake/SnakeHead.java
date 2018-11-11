@@ -34,7 +34,7 @@ public class SnakeHead extends SnakeBody
             switch(SnakeGame.collisions[pos.y][pos.x])
             {
                 case SnakeID: //If it's yourself, you lose
-                    SnakeGame.stopGame();
+                    SnakeGame.lostGame();
                     break;
                 case FoodID: //If it's food, eat it and grow
                     SnakeGame.score += 10;
@@ -47,7 +47,7 @@ public class SnakeHead extends SnakeBody
             //Tile is empty, continue
         } catch (ArrayIndexOutOfBoundsException e)
         {
-            SnakeGame.stopGame();
+            SnakeGame.lostGame();
         }
     }
     

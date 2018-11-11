@@ -1,5 +1,4 @@
 package snake;
-//This comment was made by the Abhishek Choudhury gang
 import java.awt.*;
 import java.awt.event.*;
 
@@ -51,6 +50,10 @@ public class SnakeCanvas extends Canvas
             case SnakeGame.IN_PROGRESS:
                 drawBasics(buf);
                 SnakeGame.drawEntities(buf);
+                break;
+            case SnakeGame.GAME_LOST:
+                drawBasics(buf);
+                
                 break;
         }
         
