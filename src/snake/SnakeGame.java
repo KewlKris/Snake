@@ -10,7 +10,6 @@ public class SnakeGame
     public static boolean gameInProgress = false;
     private static SnakeTimer timer;
     public static SnakeHead snake1;
-    public static SnakeView view = new SnakeView(new Point(40, 40));
     public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
     public static int score = 0;
@@ -45,17 +44,17 @@ public class SnakeGame
     {
         if (STATUS == GAME_LOST)
         {
-            view.drawTime(g, finalTime);
+            SnakeView.drawTime(g, finalTime);
             return;
         }
         try
         {
             Instant currentTime = Instant.now();
             double sec = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
-            view.drawTime(g, sec);
+            SnakeView.drawTime(g, sec);
         } catch (NullPointerException e)
         {
-            view.drawTime(g, 0d);
+            SnakeView.drawTime(g, 0d);
         }
     }
     
@@ -82,8 +81,8 @@ public class SnakeGame
      */
     public static void drawEntities(Graphics g)
     {
-        snake1.draw(view, g);
-        food.draw(view, g);
+        snake1.draw(g);
+        food.draw(g);
     }
     
     public static void tick()

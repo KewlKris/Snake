@@ -5,15 +5,11 @@ import java.text.DecimalFormat;
 
 public class SnakeView
 {
-    Point pos;
+    public static Point pos = new Point(40, 40);
     private static Font mainFont = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
     private static final DecimalFormat timeFormat = new DecimalFormat("0.00");
-    public SnakeView(Point p)
-    {
-        pos = p;
-    }
     
-    public void drawBorder(Graphics g)
+    public static void drawBorder(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -25,7 +21,7 @@ public class SnakeView
         g.drawRect(pos.x-1, pos.y-1, (width * bSize) + 2, (height * bSize) + 2);
     }
     
-    public void fillBackground(Graphics g)
+    public static void fillBackground(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -37,7 +33,7 @@ public class SnakeView
         g.fillRect(pos.x, pos.y, width * bSize, height * bSize);
     }
     
-    public void setTile(Graphics g, Color c, int x, int y)
+    public static void setTile(Graphics g, Color c, int x, int y)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -54,7 +50,7 @@ public class SnakeView
                 bSize - (inset*1));
     }
     
-    public void drawGrid(Graphics g)
+    public static void drawGrid(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -74,7 +70,7 @@ public class SnakeView
             
     }
     
-    public void drawScore(Graphics g, int num)
+    public static void drawScore(Graphics g, int num)
     {
         g.setColor(Color.BLACK);
         g.setFont(mainFont);
@@ -85,7 +81,7 @@ public class SnakeView
      * @param g The Graphics object
      * @param millis The time in milliseconds
      */
-    public void drawTime(Graphics g, double seconds)
+    public static void drawTime(Graphics g, double seconds)
     {
         g.setColor(Color.BLACK);
         g.setFont(mainFont);

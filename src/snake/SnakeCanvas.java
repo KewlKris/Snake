@@ -63,10 +63,10 @@ public class SnakeCanvas extends Canvas
     
     private void drawBasics(Graphics g)
     {
-        SnakeGame.view.drawBorder(g);
-        SnakeGame.view.fillBackground(g);
-        SnakeGame.view.drawGrid(g);
-        SnakeGame.view.drawScore(g, SnakeGame.score);
+        SnakeView.drawBorder(g);
+        SnakeView.fillBackground(g);
+        SnakeView.drawGrid(g);
+        SnakeView.drawScore(g, SnakeGame.score);
         
         SnakeGame.drawTime(g);
     }

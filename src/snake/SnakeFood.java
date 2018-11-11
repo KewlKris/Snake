@@ -39,9 +39,9 @@ public class SnakeFood {
         }
     }
     
-    public void draw(SnakeView s, Graphics g)
+    public void draw(Graphics g)
     {
-        s.setTile(g, color, pos.x, pos.y);
+        SnakeView.setTile(g, color, pos.x, pos.y);
     }
     
     public void arrayCheck()
