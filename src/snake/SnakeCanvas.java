@@ -55,6 +55,7 @@ public class SnakeCanvas extends Canvas
                 drawBasics(buf);
                 SnakeGame.drawEntities(buf);
                 SnakeLost.drawBlink(buf);
+                SnakeLost.drawCard(buf);
                 break;
         }
         

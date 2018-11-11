@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 public class SnakeView
 {
     public static Point pos = new Point(40, 40);
-    private static Font mainFont = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
-    private static final DecimalFormat timeFormat = new DecimalFormat("0.00");
+    private static final Font MAIN_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
+    private static final DecimalFormat TIME_FORMAT = new DecimalFormat("0.00");
     
     public static void drawBorder(Graphics g)
     {
@@ -73,7 +73,7 @@ public class SnakeView
     public static void drawScore(Graphics g, int num)
     {
         g.setColor(Color.BLACK);
-        g.setFont(mainFont);
+        g.setFont(MAIN_FONT);
         g.drawString("Score: " + Integer.toString(num), 40, 30);
     }
     /**
@@ -84,7 +84,7 @@ public class SnakeView
     public static void drawTime(Graphics g, double seconds)
     {
         g.setColor(Color.BLACK);
-        g.setFont(mainFont);
-        g.drawString("Time: " + timeFormat.format(seconds), 550, 30);
+        g.setFont(MAIN_FONT);
+        g.drawString("Time: " + TIME_FORMAT.format(seconds), 550, 30);
     }
 }

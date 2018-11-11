@@ -15,7 +15,7 @@ import java.awt.*;
 public class SnakeFood {
     
     public static Point pos;
-    public Color color = Color.RED;
+    public Color color = Color.BLACK;
     boolean isEaten;
     
     public SnakeFood()

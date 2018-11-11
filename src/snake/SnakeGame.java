@@ -101,8 +101,8 @@ public class SnakeGame
     {
         Instant currentTime = Instant.now();
         finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
-        STATUS = GAME_LOST;
         stopGame();
+        STATUS = GAME_LOST;
         SnakeLost.gameLost();
     }
     
