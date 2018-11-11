@@ -9,7 +9,7 @@ import java.time.Instant;
  */
 public class SnakeLost
 {
-    public static final float blinkRate = 0.5f;
+    public static final float blinkRate = 0.25f;
     
     public static Instant lostTime;
     
@@ -22,14 +22,16 @@ public class SnakeLost
      * Make the head of the snake blink, showing the fault.
      * @param g Graphics object
      */
-    public static void drawBlink(Graphics g, SnakeView view)
+    public static void drawBlink(Graphics g)
     {
+        if (SnakeGame.gameInProgress)
+            return;
         long currentTime_l = Instant.now().toEpochMilli();
         long lostTime_l = lostTime.toEpochMilli();
         
         if (((int)(((currentTime_l - lostTime_l)/1000f) / blinkRate) % 2) == 0)
         {
-            
+            SnakeView.setTile(g, new Color(150, 0, 0), SnakeGame.snake1.pos.x, SnakeGame.snake1.pos.y);
         }
     }
 }

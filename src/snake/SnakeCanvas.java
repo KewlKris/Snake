@@ -54,6 +54,7 @@ public class SnakeCanvas extends Canvas
             case SnakeGame.GAME_LOST:
                 drawBasics(buf);
                 SnakeGame.drawEntities(buf);
+                SnakeLost.drawBlink(buf);
                 break;
         }
         
