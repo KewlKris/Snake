@@ -1,11 +1,13 @@
 package snake;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class SnakeView
 {
     Point pos;
     private static Font mainFont = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
+    private static final DecimalFormat timeFormat = new DecimalFormat("0.00");
     public SnakeView(Point p)
     {
         pos = p;
@@ -83,10 +85,10 @@ public class SnakeView
      * @param g The Graphics object
      * @param millis The time in milliseconds
      */
-    public void drawTime(Graphics g, int millis)
+    public void drawTime(Graphics g, double seconds)
     {
         g.setColor(Color.BLACK);
         g.setFont(mainFont);
-        g.drawString("Time: " + Float.toString(millis / 1000f), 550, 30);
+        g.drawString("Time: " + timeFormat.format(seconds), 550, 30);
     }
 }

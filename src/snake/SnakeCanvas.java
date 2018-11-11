@@ -43,18 +43,29 @@ public class SnakeCanvas extends Canvas
         buf.setColor(this.getBackground());
         buf.fillRect(0, 0, SnakeSettings.WINDOW_SIZE.width, SnakeSettings.WINDOW_SIZE.height);
         
-        SnakeGame.view.drawBorder(buf);
-        SnakeGame.view.fillBackground(buf);
-        SnakeGame.view.drawGrid(buf);
-        SnakeGame.view.drawScore(buf, SnakeGame.score);
-        
-        if (SnakeGame.gameInProgress)
+        switch(SnakeGame.STATUS)
         {
-            SnakeGame.drawEntities(buf);
-            SnakeGame.drawTime(buf);
+            case SnakeGame.WAITING_TO_START:
+                drawBasics(buf);
+                break;
+            case SnakeGame.IN_PROGRESS:
+                drawBasics(buf);
+                SnakeGame.drawEntities(buf);
+                break;
         }
+        
         g.drawImage(frameBuffer, 0, 0, this);
         repaint();
+    }
+    
+    private void drawBasics(Graphics g)
+    {
+        SnakeGame.view.drawBorder(g);
+        SnakeGame.view.fillBackground(g);
+        SnakeGame.view.drawGrid(g);
+        SnakeGame.view.drawScore(g, SnakeGame.score);
+        
+        SnakeGame.drawTime(g);
     }
     
     

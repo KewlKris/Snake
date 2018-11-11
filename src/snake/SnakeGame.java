@@ -15,7 +15,9 @@ public class SnakeGame
     public static SnakeFood food;
     public static int score = 0;
     public static Instant startTime;
+    public static int STATUS = 1;
     
+    public static final int WAITING_TO_START=1, IN_PROGRESS=2, GAME_LOST=3;
     
     public static void startGame()
     {
@@ -31,13 +33,21 @@ public class SnakeGame
         gameInProgress = true;
         timer = new SnakeTimer();
         timer.execute();
+        
+        STATUS = IN_PROGRESS;
     }
     
     public static void drawTime(Graphics g)
     {
-        Instant currentTime = Instant.now();
-        int millis = (int)(currentTime.toEpochMilli() - startTime.toEpochMilli());
-        view.drawTime(g, millis);
+        try
+        {
+            Instant currentTime = Instant.now();
+            double sec = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
+            view.drawTime(g, sec);
+        } catch (NullPointerException e)
+        {
+            view.drawTime(g, 0d);
+        }
     }
     
     public static void updateArray()
@@ -79,10 +89,24 @@ public class SnakeGame
         startGame();
     }
     
+    public static void lostGame()
+    {
+        
+    }
+    
     public static void stopGame()
     {
         gameInProgress = false;
         timer.cancel(false);
         Snake.frame.startButton.setEnabled(true);
+    }
+    
+    private static void delay(float seconds)
+    {
+        Instant start = Instant.now();
+        while((Instant.now().toEpochMilli() - start.toEpochMilli())/1000f < seconds)
+        {
+            //Wait
+        }
     }
 }
