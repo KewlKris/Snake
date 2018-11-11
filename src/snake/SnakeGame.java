@@ -30,6 +30,7 @@ public class SnakeGame
         //snake1.setChild(s1);
         snake1.appendChild(3);
         
+        SnakeTimer.TICKRATE = SnakeSettings.DEFAULT_TICKRATE;
         finalTime = 0;
         score = 0;
         startTime = Instant.now();

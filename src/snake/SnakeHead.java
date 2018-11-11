@@ -39,6 +39,7 @@ public class SnakeHead extends SnakeBody
                 case FoodID: //If it's food, eat it and grow
                     SnakeGame.score += 10;
                     SnakeGame.food.resetFood();
+                    SnakeTimer.TICKRATE = SnakeTimer.TICKRATE - SnakeSettings.TICKRATE_DECLINE;
                     appendChild();
                     break;
             }
