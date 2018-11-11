@@ -104,6 +104,7 @@ public class SnakeGame
         finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         STATUS = GAME_LOST;
         stopGame();
+        SnakeLost.gameLost();
     }
     
     public static void stopGame()

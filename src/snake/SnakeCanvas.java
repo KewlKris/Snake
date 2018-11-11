@@ -53,7 +53,7 @@ public class SnakeCanvas extends Canvas
                 break;
             case SnakeGame.GAME_LOST:
                 drawBasics(buf);
-                
+                SnakeGame.drawEntities(buf);
                 break;
         }
         
