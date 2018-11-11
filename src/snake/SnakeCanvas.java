@@ -1,5 +1,4 @@
 package snake;
-//This comment was made by the Abhishek Choudhury gang
 import java.awt.*;
 import java.awt.event.*;
 
@@ -21,33 +20,7 @@ public class SnakeCanvas extends Canvas
         {
             //System.out.println(e.getKeyChar());
             //System.out.println(e.getExtendedKeyCode());
-            
-            switch(e.getKeyCode())
-            {
-                case KeyEvent.VK_UP:
-                    if (SnakeGame.snake1.direction == SnakeHead.DOWN)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.UP;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if (SnakeGame.snake1.direction == SnakeHead.UP)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.DOWN;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    if (SnakeGame.snake1.direction == SnakeHead.RIGHT)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.LEFT;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if (SnakeGame.snake1.direction == SnakeHead.LEFT)
-                        break;
-                    SnakeGame.snake1.direction = SnakeHead.RIGHT;
-                    break;
-                case KeyEvent.VK_ADD:
-                    SnakeGame.snake1.appendChild();
-                    break;
-            }
+            SnakeGame.keyPresed(e);
         }
         public void keyReleased(KeyEvent e) {}
         public void keyTyped(KeyEvent e) {}
@@ -66,20 +39,44 @@ public class SnakeCanvas extends Canvas
                 return;
             }
         }
-        SnakeGame.view.drawBorder(buf);
-        SnakeGame.view.fillBackground(buf);
-        SnakeGame.view.drawGrid(buf);
+        buf.setColor(this.getBackground());
+        buf.fillRect(0, 0, SnakeSettings.WINDOW_SIZE.width, SnakeSettings.WINDOW_SIZE.height);
         
-        if (SnakeGame.gameInProgress)
+        switch(SnakeGame.STATUS)
         {
-            SnakeGame.drawEntities(buf);
+            case SnakeGame.WAITING_TO_START:
+                drawBasics(buf);
+                break;
+            case SnakeGame.IN_PROGRESS:
+                drawBasics(buf);
+                SnakeGame.drawEntities(buf);
+                break;
+            case SnakeGame.GAME_LOST:
+                drawBasics(buf);
+                SnakeGame.drawEntities(buf);
+                SnakeLost.drawBlink(buf);
+                SnakeLost.drawCard(buf);
+                break;
         }
+        
         g.drawImage(frameBuffer, 0, 0, this);
         repaint();
     }
+    
+    private void drawBasics(Graphics g)
+    {
+        SnakeView.drawBorder(g);
+        SnakeView.fillBackground(g);
+        SnakeView.drawGrid(g);
+        SnakeView.drawScore(g, SnakeGame.score);
+        
+        SnakeGame.drawTime(g);
+    }
+    
     
     public void update(Graphics g)
     {
         paint(g);
     }
+    
 }

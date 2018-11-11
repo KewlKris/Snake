@@ -6,6 +6,8 @@
 package snake;
 
 import java.awt.*;
+import java.util.Arrays;
+import static snake.SnakeGame.collisions;
 
 /**
  *
@@ -15,17 +17,18 @@ abstract public class SnakeBody
 {
     SnakeSegment child;
     public int direction;
-    protected Point pos;
+    protected Point pos = new Point(0,0);
     public Color color = Color.BLACK;
     boolean hasChild = false;
     boolean delayed;
+    public int number;
     
-    public void draw(SnakeView s, Graphics g)
+    public void draw(Graphics g)
     {
-        s.setTile(g, color, pos.x, pos.y);
+        SnakeView.setTile(g, color, pos.x, pos.y);
         if (hasChild)
         {
-            child.draw(s, g);
+            child.draw(g);
         }
     }
     
@@ -59,6 +62,7 @@ abstract public class SnakeBody
                 break;
         }
     }
+    
     public void setChild(SnakeSegment c)
     {
         hasChild = true;
@@ -75,11 +79,33 @@ abstract public class SnakeBody
         
         SnakeSegment c = new SnakeSegment(this, true);
         setChild(c);
-        
+    }
+    
+    /**
+     * This method adds children to the snake.
+     * @param childCount The amount of children to add.
+     */
+    public void appendChild(int childCount)
+    {
+        for(int x=0; x<childCount; x++)
+        {
+            appendChild();
+        }
     }
     
     public void assumeDirection()
     {
         //System.out.println("No source of direction!");
+    }
+    
+    public void arrayCheck()
+    {
+        if (delayed)
+            return;
+        collisions[pos.y][pos.x] = Grid.SnakeID;
+        if(hasChild)
+        {
+            child.arrayCheck();
+        }
     }
 }

@@ -1,16 +1,15 @@
 package snake;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class SnakeView
 {
-    Point pos;
-    public SnakeView(Point p)
-    {
-        pos = p;
-    }
+    public static Point pos = new Point(40, 40);
+    private static final Font MAIN_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 24);
+    private static final DecimalFormat TIME_FORMAT = new DecimalFormat("0.00");
     
-    public void drawBorder(Graphics g)
+    public static void drawBorder(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -22,7 +21,7 @@ public class SnakeView
         g.drawRect(pos.x-1, pos.y-1, (width * bSize) + 2, (height * bSize) + 2);
     }
     
-    public void fillBackground(Graphics g)
+    public static void fillBackground(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -34,7 +33,7 @@ public class SnakeView
         g.fillRect(pos.x, pos.y, width * bSize, height * bSize);
     }
     
-    public void setTile(Graphics g, Color c, int x, int y)
+    public static void setTile(Graphics g, Color c, int x, int y)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -51,7 +50,7 @@ public class SnakeView
                 bSize - (inset*1));
     }
     
-    public void drawGrid(Graphics g)
+    public static void drawGrid(Graphics g)
     {
         //Variables for readability
         int bSize = SnakeSettings.BLOCK_SIZE;
@@ -69,5 +68,23 @@ public class SnakeView
         for(int y=0; y<height; y++)
             g.drawLine(pos.x, pos.y + y*bSize, pos.x + width*bSize, pos.y + y*bSize);
             
+    }
+    
+    public static void drawScore(Graphics g, int num)
+    {
+        g.setColor(Color.BLACK);
+        g.setFont(MAIN_FONT);
+        g.drawString("Score: " + Integer.toString(num), 40, 30);
+    }
+    /**
+     * Draws the time to the canvas.
+     * @param g The Graphics object
+     * @param millis The time in milliseconds
+     */
+    public static void drawTime(Graphics g, double seconds)
+    {
+        g.setColor(Color.BLACK);
+        g.setFont(MAIN_FONT);
+        g.drawString("Time: " + TIME_FORMAT.format(seconds), 550, 30);
     }
 }
