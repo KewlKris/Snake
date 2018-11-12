@@ -15,12 +15,16 @@ public class SnakeGame
     public static int score = 0;
     public static Instant startTime;
     public static int STATUS = 1;
+    public static int GAME_TYPE;
     
     private static double finalTime;
     
     public static final int WAITING_TO_START=1, IN_PROGRESS=2, GAME_LOST=3;
+    public static final int 
+            SINGLE=1, SINGLE_WITH_BOT=2, MULTI_SAME_SCREEN=3, MULTI_HOST=4,
+            MULTI_JOIN=5;
     
-    public static void startGame()
+    public static void startGame(int type)
     {
         //Create snakes
         snake1 = new SnakeHead(new Point(32, 18), SnakeHead.LEFT, 1);
@@ -42,7 +46,7 @@ public class SnakeGame
     
     public static void drawTime(Graphics g)
     {
-        if (STATUS == GAME_LOST)
+        if (STATUS == GAME_LOST || !gameInProgress)
         {
             SnakeView.drawTime(g, finalTime);
             return;
@@ -91,16 +95,8 @@ public class SnakeGame
         snake1.move();
     }
     
-    public static void resetGame()
-    {
-        stopGame();
-        startGame();
-    }
-    
     public static void lostGame()
     {
-        Instant currentTime = Instant.now();
-        finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         stopGame();
         STATUS = GAME_LOST;
         SnakeLost.gameLost();
@@ -108,9 +104,12 @@ public class SnakeGame
     
     public static void stopGame()
     {
+        Instant currentTime = Instant.now();
+        finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         gameInProgress = false;
         timer.cancel(true);
         Snake.frame.startButton.setEnabled(true);
+        Snake.frame.stopButton.setEnabled(false);
     }
     
     private static void delay(float seconds)
