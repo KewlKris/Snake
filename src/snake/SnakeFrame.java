@@ -248,6 +248,7 @@ public class SnakeFrame extends javax.swing.JFrame {
                 return;
             }
             SnakeGame.startGame(SnakeGame.SINGLE);
+            return;
         }
         if (multiButton.isEnabled())
         {
