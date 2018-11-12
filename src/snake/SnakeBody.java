@@ -18,10 +18,11 @@ abstract public class SnakeBody
     SnakeSegment child;
     public int direction;
     protected Point pos = new Point(0,0);
-    public Color color = Color.BLACK;
+    public Color color;
     boolean hasChild = false;
     boolean delayed;
     public int number;
+    public int keyBinding;
     
     public void draw(Graphics g)
     {
@@ -77,7 +78,7 @@ abstract public class SnakeBody
             return;
         }
         
-        SnakeSegment c = new SnakeSegment(this, true);
+        SnakeSegment c = new SnakeSegment(this, color, true);
         setChild(c);
     }
     

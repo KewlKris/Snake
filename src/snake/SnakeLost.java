@@ -32,7 +32,7 @@ public class SnakeLost
         
         if (((int)(((currentTime_l - lostTime_l)/1000f) / BLINK_RATE) % 2) == 0)
         {
-            SnakeView.setTile(g, new Color(150, 0, 0), SnakeGame.snake1.pos.x, SnakeGame.snake1.pos.y);
+            SnakeView.setTile(g, new Color(0, 0, 0), SnakeGame.looser.pos.x, SnakeGame.looser.pos.y);
         }
     }
     

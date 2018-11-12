@@ -11,13 +11,14 @@ public class SnakeHead extends SnakeBody
     /*The above fixes a bug where the snake could still "turn" into itself
     if it changed its direction twice in-between a tick.*/
     
-    public SnakeHead(Point p, int d, int num)
+    public SnakeHead(Point p, Color c, int d, int num)
     {
         super.pos = p;
         super.direction = d;
         lastTickedDirection = d;
         super.delayed = false;
-        super.number = num;
+        super.keyBinding = num;
+        super.color = c;
     }
     
     public void move()
@@ -34,12 +35,12 @@ public class SnakeHead extends SnakeBody
             switch(SnakeGame.collisions[pos.y][pos.x])
             {
                 case SnakeID: //If it's yourself, you lose
-                    SnakeGame.lostGame();
+                    SnakeGame.lostGame(this);
                     break;
                 case FoodID: //If it's food, eat it and grow
                     SnakeGame.score += 10;
                     SnakeGame.food.resetFood();
-                    SnakeTimer.TICKRATE = SnakeTimer.TICKRATE - SnakeSettings.TICKRATE_DECLINE;
+                    SnakeTimer.TICKRATE -= SnakeSettings.TICKRATE_DECLINE;
                     appendChild();
                     break;
             }
@@ -48,7 +49,7 @@ public class SnakeHead extends SnakeBody
             //Tile is empty, continue
         } catch (ArrayIndexOutOfBoundsException e)
         {
-            SnakeGame.lostGame();
+            SnakeGame.lostGame(this);
         }
     }
     
@@ -60,31 +61,62 @@ public class SnakeHead extends SnakeBody
      */
     public boolean changeDirection(KeyEvent e)
     {
-        switch(e.getKeyCode())
+        if (super.keyBinding == 1)
         {
-            case KeyEvent.VK_UP:
-                if (lastTickedDirection == DOWN)
+            switch(e.getKeyCode())
+            {
+                case KeyEvent.VK_UP:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_DOWN:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_LEFT:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_RIGHT:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+                case KeyEvent.VK_ADD:
+                    appendChild();
                     break;
-                direction = UP;
-                return true;
-            case KeyEvent.VK_DOWN:
-                if (lastTickedDirection == UP)
+            }
+        } else
+        {
+            switch(e.getKeyCode())
+            {
+                case KeyEvent.VK_W:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_S:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_A:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_D:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+                case KeyEvent.VK_ADD:
+                    appendChild();
                     break;
-                direction = DOWN;
-                return true;
-            case KeyEvent.VK_LEFT:
-                if (lastTickedDirection == RIGHT)
-                    break;
-                direction = LEFT;
-                return true;
-            case KeyEvent.VK_RIGHT:
-                if (lastTickedDirection == LEFT)
-                    break;
-                direction = RIGHT;
-                return true;
-            case KeyEvent.VK_ADD:
-                appendChild();
-                break;
+            }
         }
         return false;
     }

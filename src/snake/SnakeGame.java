@@ -10,12 +10,14 @@ public class SnakeGame
     public static boolean gameInProgress = false;
     private static SnakeTimer timer;
     public static SnakeHead snake1;
+    public static SnakeHead snake2;
     public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
     public static int score = 0;
     public static Instant startTime;
     public static int STATUS = 1;
     public static int GAME_TYPE;
+    public static SnakeHead looser;
     
     private static double finalTime;
     
@@ -27,11 +29,13 @@ public class SnakeGame
     public static void startGame(int type)
     {
         //Create snakes
-        snake1 = new SnakeHead(new Point(32, 18), SnakeHead.LEFT, 1);
+        snake1 = new SnakeHead(new Point(32, 18), new Color(150, 0, 0), SnakeHead.LEFT, 1);
+        snake2 = new SnakeHead(new Point(44, 18), new Color(0, 0, 150), SnakeHead.LEFT, 2);
         food = new SnakeFood();
         //SnakeSegment s1 = new SnakeSegment(snake1, true);
         //snake1.setChild(s1);
         snake1.appendChild(3);
+        snake2.appendChild(3);
         
         SnakeTimer.TICKRATE = SnakeSettings.DEFAULT_TICKRATE;
         finalTime = 0;
@@ -66,6 +70,7 @@ public class SnakeGame
     {
         collisions = new Grid[collisions.length][collisions[0].length];
         snake1.arrayCheck();
+        snake2.arrayCheck();
         if (food != null)
             food.arrayCheck();
     }
@@ -77,6 +82,7 @@ public class SnakeGame
     public static void keyPresed(KeyEvent e)
     {
         snake1.changeDirection(e);
+        snake2.changeDirection(e);
     }
     
     /**
@@ -86,6 +92,7 @@ public class SnakeGame
     public static void drawEntities(Graphics g)
     {
         snake1.draw(g);
+        snake2.draw(g);
         food.draw(g);
     }
     
@@ -93,10 +100,12 @@ public class SnakeGame
     {
         updateArray();
         snake1.move();
+        snake2.move();
     }
     
-    public static void lostGame()
+    public static void lostGame(SnakeHead l)
     {
+        looser = l;
         stopGame();
         STATUS = GAME_LOST;
         SnakeLost.gameLost();
