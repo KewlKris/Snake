@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class SnakeHead extends SnakeBody
 {
@@ -122,5 +123,18 @@ public class SnakeHead extends SnakeBody
             }
         }
         return false;
+    }
+    
+    public ArrayList<Point> getPos(ArrayList<Point> a)
+    {
+        if (a == null)
+        {
+            a = new ArrayList<Point>();
+        }
+        
+        a.add(pos);
+        getPos(a);
+        
+        return a;
     }
 }
