@@ -38,10 +38,13 @@ public class SnakeHead extends SnakeBody
                     SnakeGame.lostGame(this);
                     break;
                 case FoodID: //If it's food, eat it and grow
-                    SnakeGame.score += 10;
+                    if (this.keyBinding == 1)
+                        SnakeGame.score += 10;
+                    else
+                        SnakeGame.score2 += 10;
                     SnakeGame.food.resetFood();
                     SnakeTimer.TICKRATE -= SnakeSettings.TICKRATE_DECLINE;
-                    appendChild();
+                    appendChild(3);
                     break;
             }
         } catch (NullPointerException e)

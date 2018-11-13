@@ -68,7 +68,8 @@ public class SnakeCanvas extends Canvas
         SnakeView.drawBorder(g);
         SnakeView.fillBackground(g);
         SnakeView.drawGrid(g);
-        SnakeView.drawScore(g, SnakeGame.score);
+        SnakeView.drawScore(g, SnakeGame.score, new Point(40,30));
+        SnakeView.drawScore(g, SnakeGame.score2, new Point(200,30));
         
         SnakeGame.drawTime(g);
     }

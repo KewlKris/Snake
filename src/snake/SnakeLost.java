@@ -10,13 +10,15 @@ import java.time.Instant;
 public class SnakeLost
 {
     public static final float BLINK_RATE = 0.25f;
-    private static final Font LOST_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 48);
+    private static final Font LOST_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 36);
+    private static SnakeHead looser;
     
     public static Instant lostTime;
     
-    public static void gameLost()
+    public static void gameLost(SnakeHead l)
     {
         lostTime = Instant.now();
+        looser = l;
     }
     
     /**
@@ -32,7 +34,7 @@ public class SnakeLost
         
         if (((int)(((currentTime_l - lostTime_l)/1000f) / BLINK_RATE) % 2) == 0)
         {
-            SnakeView.setTile(g, new Color(0, 0, 0), SnakeGame.looser.pos.x, SnakeGame.looser.pos.y);
+            SnakeView.setTile(g, Color.YELLOW, SnakeGame.looser.pos.x, SnakeGame.looser.pos.y);
         }
     }
     
@@ -40,7 +42,7 @@ public class SnakeLost
      * This will draw and animate the Game End card.
      * @param g The Graphics object
      */
-    private static int cardWidth=260, cardHeight=110;
+    private static int cardWidth=290, cardHeight=110;
     private static final Point cardEnd = new Point(SnakeSettings.WINDOW_SIZE.width/2, SnakeSettings.WINDOW_SIZE.height/2);
     private static final Point cardStart = new Point(cardEnd.x, cardEnd.y+500);
     private static final float transitionTime = 1f;
@@ -67,7 +69,13 @@ public class SnakeLost
         
         //Draw the text
         g.setFont(LOST_FONT);
-        g.drawString("You lost!", currentPos.x-100, currentPos.y+15);
+        String name = "";
+        if (looser.keyBinding == 1)
+            name = "Red Snake";
+        else 
+            name = "Blue Snake";
+        g.drawString(name + " lost!", currentPos.x-135, currentPos.y+15);
+        
     }
     
     private static float getBezier(float x)

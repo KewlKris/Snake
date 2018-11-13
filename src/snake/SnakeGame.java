@@ -14,6 +14,7 @@ public class SnakeGame
     public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
     public static int score = 0;
+    public static int score2 = 0;
     public static Instant startTime;
     public static int STATUS = 1;
     public static int GAME_TYPE;
@@ -29,8 +30,8 @@ public class SnakeGame
     public static void startGame(int type)
     {
         //Create snakes
-        snake1 = new SnakeHead(new Point(32, 18), new Color(150, 0, 0), SnakeHead.LEFT, 1);
-        snake2 = new SnakeHead(new Point(44, 18), new Color(0, 0, 150), SnakeHead.LEFT, 2);
+        snake1 = new SnakeHead(new Point(36, 18), new Color(150, 0, 0), SnakeHead.RIGHT, 1);
+        snake2 = new SnakeHead(new Point(28, 18), new Color(0, 0, 150), SnakeHead.LEFT, 2);
         food = new SnakeFood();
         //SnakeSegment s1 = new SnakeSegment(snake1, true);
         //snake1.setChild(s1);
@@ -108,7 +109,7 @@ public class SnakeGame
         looser = l;
         stopGame();
         STATUS = GAME_LOST;
-        SnakeLost.gameLost();
+        SnakeLost.gameLost(l);
     }
     
     public static void stopGame()
