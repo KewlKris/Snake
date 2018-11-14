@@ -1,6 +1,7 @@
 package snake;
 import java.awt.*;
 import java.awt.event.*;
+import snake.client.SnakeClient;
 
 public class SnakeCanvas extends Canvas
 {
@@ -20,7 +21,7 @@ public class SnakeCanvas extends Canvas
         {
             //System.out.println(e.getKeyChar());
             //System.out.println(e.getExtendedKeyCode());
-            SnakeGame.keyPresed(e);
+            SnakeClient.sendDirection(e.getExtendedKeyCode());
         }
         public void keyReleased(KeyEvent e) {}
         public void keyTyped(KeyEvent e) {}
