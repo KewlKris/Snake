@@ -1,4 +1,4 @@
-package snake;
+package snake.client;
 import java.awt.*;
 import java.awt.event.*;
 import snake.client.SnakeClient;
@@ -9,7 +9,7 @@ public class SnakeCanvas extends Canvas
     Graphics buf;
     public SnakeCanvas()
     {
-        this.setSize(SnakeSettings.WINDOW_SIZE);
+        this.setSize(snake.SnakeSettings.WINDOW_SIZE);
         this.setBackground(new Color(210, 210, 210));
         
         this.addKeyListener(new SnakeListener());
@@ -41,7 +41,7 @@ public class SnakeCanvas extends Canvas
             }
         }
         buf.setColor(this.getBackground());
-        buf.fillRect(0, 0, SnakeSettings.WINDOW_SIZE.width, SnakeSettings.WINDOW_SIZE.height);
+        buf.fillRect(0, 0, snake.SnakeSettings.WINDOW_SIZE.width, snake.SnakeSettings.WINDOW_SIZE.height);
         
         switch(SnakeGame.STATUS)
         {
@@ -55,7 +55,6 @@ public class SnakeCanvas extends Canvas
             case SnakeGame.GAME_LOST:
                 drawBasics(buf);
                 SnakeGame.drawEntities(buf);
-                SnakeLost.drawBlink(buf);
                 SnakeLost.drawCard(buf);
                 break;
         }

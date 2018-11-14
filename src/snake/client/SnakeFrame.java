@@ -244,10 +244,10 @@ public class SnakeFrame extends javax.swing.JFrame {
         {
             if (cpuButton.isEnabled())
             {
-                SnakeGame.startGame(SnakeGame.SINGLE_WITH_BOT);
+                snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE_WITH_BOT);
                 return;
             }
-            SnakeGame.startGame(SnakeGame.SINGLE);
+            snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE);
             return;
         }
         if (multiButton.isEnabled())

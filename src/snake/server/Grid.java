@@ -1,4 +1,4 @@
-package snake;
+package snake.server;
 
 public enum Grid
 {

@@ -1,4 +1,4 @@
-package snake;
+package snake.server;
 
 import java.awt.*;
 import java.awt.event.*;

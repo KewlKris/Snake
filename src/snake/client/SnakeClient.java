@@ -10,7 +10,7 @@ public class SnakeClient
     private static DataOutputStream out;
     
     /*
-    1 - Change Direction
+    20 - Change Direction
     */
     
     public static boolean connect(String host, int port)
@@ -34,7 +34,7 @@ public class SnakeClient
     {
         try
         {
-            out.writeInt(1);
+            out.writeInt(20);
             out.writeInt(i);
         } catch (IOException e)
         {

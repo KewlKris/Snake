@@ -1,4 +1,4 @@
-package snake;
+package snake.client;
 
 import java.awt.*;
 import java.time.Instant;
@@ -11,31 +11,14 @@ public class SnakeLost
 {
     public static final float BLINK_RATE = 0.25f;
     private static final Font LOST_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 36);
-    private static SnakeHead looser;
+    private static int looser;
     
     public static Instant lostTime;
     
-    public static void gameLost(SnakeHead l)
+    public static void gameLost(int l, long lTime)
     {
-        lostTime = Instant.now();
+        lostTime = Instant.ofEpochSecond(lTime);
         looser = l;
-    }
-    
-    /**
-     * Make the head of the snake blink, showing the fault.
-     * @param g The Graphics object
-     */
-    public static void drawBlink(Graphics g)
-    {
-        if (lostTime == null)
-            return;
-        long currentTime_l = Instant.now().toEpochMilli();
-        long lostTime_l = lostTime.toEpochMilli();
-        
-        if (((int)(((currentTime_l - lostTime_l)/1000f) / BLINK_RATE) % 2) == 0)
-        {
-            SnakeView.setTile(g, Color.YELLOW, SnakeGame.looser.pos.x, SnakeGame.looser.pos.y);
-        }
     }
     
     /**
@@ -43,7 +26,7 @@ public class SnakeLost
      * @param g The Graphics object
      */
     private static int cardWidth=290, cardHeight=110;
-    private static final Point cardEnd = new Point(SnakeSettings.WINDOW_SIZE.width/2, SnakeSettings.WINDOW_SIZE.height/2);
+    private static final Point cardEnd = new Point(snake.SnakeSettings.WINDOW_SIZE.width/2, snake.SnakeSettings.WINDOW_SIZE.height/2);
     private static final Point cardStart = new Point(cardEnd.x, cardEnd.y+500);
     private static final float transitionTime = 1f;
     
@@ -70,7 +53,7 @@ public class SnakeLost
         //Draw the text
         g.setFont(LOST_FONT);
         String name = "";
-        if (looser.keyBinding == 1)
+        if (looser == 1)
             name = "Red Snake";
         else 
             name = "Blue Snake";

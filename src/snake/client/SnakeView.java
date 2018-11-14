@@ -1,4 +1,4 @@
-package snake;
+package snake.client;
 
 import java.awt.*;
 import java.text.DecimalFormat;
