@@ -1,6 +1,7 @@
 package snake.client;
 
 import java.awt.event.*;
+import java.time.Instant;
 
 public class SnakeFrame extends javax.swing.JFrame
 {
@@ -14,7 +15,14 @@ public class SnakeFrame extends javax.swing.JFrame
 
         playerGroup = new javax.swing.ButtonGroup();
         hostGroup = new javax.swing.ButtonGroup();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        gameTab = new javax.swing.JPanel();
         frame_canvas = new SnakeCanvas();
+        startButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        setTab = new javax.swing.JPanel();
         setPanel = new javax.swing.JPanel();
         multiButton = new javax.swing.JRadioButton();
         hostButton = new javax.swing.JRadioButton();
@@ -25,10 +33,6 @@ public class SnakeFrame extends javax.swing.JFrame
         portField = new javax.swing.JTextField();
         singleButton = new javax.swing.JRadioButton();
         cpuButton = new javax.swing.JCheckBox();
-        outputScroll = new javax.swing.JScrollPane();
-        outputArea = new javax.swing.JTextArea();
-        stopButton = new javax.swing.JButton();
-        startButton = new javax.swing.JButton();
         sameButton = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -40,7 +44,58 @@ public class SnakeFrame extends javax.swing.JFrame
         setSize(new java.awt.Dimension(0, 0));
 
         frame_canvas.setMinimumSize(new java.awt.Dimension(720, 440));
-        frame_canvas.setPreferredSize(new java.awt.Dimension(720, 440));
+
+        startButton.setText("Start");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
+        stopButton.setText("Stop");
+        stopButton.setEnabled(false);
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout gameTabLayout = new javax.swing.GroupLayout(gameTab);
+        gameTab.setLayout(gameTabLayout);
+        gameTabLayout.setHorizontalGroup(
+            gameTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gameTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(gameTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(frame_canvas, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(gameTabLayout.createSequentialGroup()
+                        .addGroup(gameTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startButton)
+                            .addComponent(stopButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        gameTabLayout.setVerticalGroup(
+            gameTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gameTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(frame_canvas, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(gameTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gameTabLayout.createSequentialGroup()
+                        .addComponent(startButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stopButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Snake", gameTab);
 
         setPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Game Setup"));
 
@@ -87,28 +142,6 @@ public class SnakeFrame extends javax.swing.JFrame
             }
         });
 
-        outputScroll.setEnabled(false);
-
-        outputArea.setEditable(false);
-        outputArea.setColumns(20);
-        outputArea.setRows(4);
-        outputScroll.setViewportView(outputArea);
-
-        stopButton.setText("Stop");
-        stopButton.setEnabled(false);
-        stopButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopButtonActionPerformed(evt);
-            }
-        });
-
-        startButton.setText("Start");
-        startButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startButtonActionPerformed(evt);
-            }
-        });
-
         hostGroup.add(sameButton);
         sameButton.setSelected(true);
         sameButton.setText("Same Screen");
@@ -119,67 +152,71 @@ public class SnakeFrame extends javax.swing.JFrame
         setPanelLayout.setHorizontalGroup(
             setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(setPanelLayout.createSequentialGroup()
-                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(setPanelLayout.createSequentialGroup()
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(setPanelLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(singleButton))
-                            .addGroup(setPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(cpuButton)))
+                        .addGap(7, 7, 7)
+                        .addComponent(singleButton))
+                    .addGroup(setPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cpuButton)))
+                .addGap(18, 18, 18)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(multiButton)
+                    .addComponent(sameButton))
+                .addGap(15, 15, 15)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(setPanelLayout.createSequentialGroup()
+                        .addComponent(joinButton)
                         .addGap(18, 18, 18)
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(multiButton)
-                            .addComponent(sameButton))
-                        .addGap(15, 15, 15)
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(setPanelLayout.createSequentialGroup()
-                                .addComponent(joinButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(portLabel)
-                                .addGap(38, 38, 38)
-                                .addComponent(portField))
-                            .addGroup(setPanelLayout.createSequentialGroup()
-                                .addComponent(hostButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(ipLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(portLabel)
+                        .addGap(38, 38, 38)
+                        .addComponent(portField))
                     .addGroup(setPanelLayout.createSequentialGroup()
-                        .addComponent(startButton)
+                        .addComponent(hostButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(ipLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stopButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(outputScroll)
-                .addContainerGap())
+                        .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         setPanelLayout.setVerticalGroup(
             setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(setPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(outputScroll, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, setPanelLayout.createSequentialGroup()
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(multiButton)
-                            .addComponent(hostButton)
-                            .addComponent(ipLabel)
-                            .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(singleButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(joinButton)
-                            .addComponent(portLabel)
-                            .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cpuButton)
-                            .addComponent(sameButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(stopButton)
-                            .addComponent(startButton))))
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(multiButton)
+                    .addComponent(hostButton)
+                    .addComponent(ipLabel)
+                    .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(singleButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(joinButton)
+                    .addComponent(portLabel)
+                    .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpuButton)
+                    .addComponent(sameButton))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout setTabLayout = new javax.swing.GroupLayout(setTab);
+        setTab.setLayout(setTabLayout);
+        setTabLayout.setHorizontalGroup(
+            setTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(setTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        setTabLayout.setVerticalGroup(
+            setTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(setTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Settings", setTab);
 
         jMenu1.setText("File");
 
@@ -199,64 +236,19 @@ public class SnakeFrame extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(frame_canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(setPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(frame_canvas, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        startButton.setEnabled(false);
-        frame_canvas.requestFocus();
-        stopButton.setEnabled(true);
-        if (singleButton.isEnabled())
-        {
-            if (cpuButton.isEnabled())
-            {
-                //snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE_WITH_BOT);
-                return;
-            }
-            //snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE);
-            return;
-        }
-        if (multiButton.isEnabled())
-        {
-            if (hostButton.isEnabled())
-                return;
-                //SnakeGame.startGame(SnakeGame.MULTI_HOST);
-            if (joinButton.isEnabled())
-                return;
-                //SnakeGame.startGame(SnakeGame.MULTI_JOIN);
-            if (sameButton.isEnabled())
-                return;
-                //SnakeGame.startGame(SnakeGame.MULTI_SAME_SCREEN);
-        }
-        
-    }//GEN-LAST:event_startButtonActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        startButton.setEnabled(true);
-        stopButton.setEnabled(false);
-        SnakeGame.stopGame();
-    }//GEN-LAST:event_stopButtonActionPerformed
 
     private void cpuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpuButtonActionPerformed
         // TODO add your handling code here:
@@ -285,6 +277,49 @@ public class SnakeFrame extends javax.swing.JFrame
         
         cpuButton.setEnabled(true);
     }//GEN-LAST:event_singleButtonActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        startButton.setEnabled(false);
+        frame_canvas.requestFocus();
+        stopButton.setEnabled(true);
+        if (singleButton.isEnabled())
+        {
+            if (cpuButton.isSelected())
+            {
+                //snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE_WITH_BOT);
+                return;
+            }
+            //Start Server
+            snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE, 27010);
+            new snake.server.SnakeServer().start();
+            
+            //Start host computer's client
+            snake.client.SnakeClient.connect("127.0.0.1", 27010);
+            snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
+            return;
+        }
+        if (multiButton.isEnabled())
+        {
+            String hostname = ipField.getText();
+            int port = Integer.parseInt(portField.getText());
+            
+            if (hostButton.isEnabled())
+            return;
+            //SnakeGame.startGame(SnakeGame.MULTI_HOST);
+            if (joinButton.isEnabled())
+            return;
+            //SnakeGame.startGame(SnakeGame.MULTI_JOIN);
+            if (sameButton.isEnabled())
+            return;
+            //SnakeGame.startGame(SnakeGame.MULTI_SAME_SCREEN);
+        }
+    }//GEN-LAST:event_startButtonActionPerformed
+
+    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
+        SnakeGame.stopGame();
+    }//GEN-LAST:event_stopButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,22 +359,25 @@ public class SnakeFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cpuButton;
     private java.awt.Canvas frame_canvas;
+    private javax.swing.JPanel gameTab;
     private javax.swing.JRadioButton hostButton;
     private javax.swing.ButtonGroup hostGroup;
     private javax.swing.JTextField ipField;
     private javax.swing.JLabel ipLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JRadioButton joinButton;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JRadioButton multiButton;
-    private javax.swing.JTextArea outputArea;
-    private javax.swing.JScrollPane outputScroll;
     private javax.swing.ButtonGroup playerGroup;
     private javax.swing.JTextField portField;
     private javax.swing.JLabel portLabel;
     private javax.swing.JRadioButton sameButton;
     private javax.swing.JPanel setPanel;
+    private javax.swing.JPanel setTab;
     private javax.swing.JRadioButton singleButton;
     public javax.swing.JButton startButton;
     public javax.swing.JButton stopButton;
