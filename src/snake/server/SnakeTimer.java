@@ -14,6 +14,13 @@ public class SnakeTimer extends SwingWorker<Void, Void>
             Instant start = Instant.now();
             while(((float)(Instant.now().toEpochMilli() - start.toEpochMilli()) / 1000f) < TICKRATE)
             {
+                if (SnakeGame.isPaused)
+                {
+                    while(SnakeGame.isPaused)
+                    {
+                        
+                    }
+                }
                 if (!SnakeGame.gameInProgress)
                     return null;
             }

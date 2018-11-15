@@ -22,6 +22,7 @@ public class SnakeGame
     public static int GAME_TYPE;
     public static SnakeHead loser;
     public static int port;
+    public static boolean isPaused = false;
     
     private static double finalTime;
     
@@ -53,6 +54,8 @@ public class SnakeGame
         score = 0;
         startTime = Instant.now();
         gameInProgress = true;
+        if ((GAME_TYPE == 4) && ((SnakeServer.client1 == null) || (SnakeServer.client2 == null)))
+            isPaused = true;
         timer = new SnakeTimer();
         timer.execute();
         

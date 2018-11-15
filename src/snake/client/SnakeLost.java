@@ -30,12 +30,30 @@ public class SnakeLost
     private static final Point cardStart = new Point(cardEnd.x, cardEnd.y+500);
     private static final float transitionTime = 1f;
     
+    /**
+     * Make the head of the snake blink, showing the fault.
+     * @param g The Graphics object
+     */
+    /*
+    public static void drawBlink(Graphics g)
+    {
+        if (lostTime == null)
+            return;
+        long currentTime_l = Instant.now().toEpochMilli();
+        long lostTime_l = lostTime.toEpochMilli();
+        
+        if (((int)(((currentTime_l - lostTime_l)/1000f) / BLINK_RATE) % 2) == 0)
+        {
+            SnakeView.setTile(g, new Color(0, 0, 0), SnakeGame.loser.pos.x, SnakeGame.loser.pos.y);
+        }
+    }
+    */
+    
     public static void drawCard(Graphics g)
     {
         if (lostTime == null)
             return;
         float pathPercent = (((Instant.now().toEpochMilli()-lostTime.toEpochMilli())/1000f) / transitionTime);
-        System.out.println(pathPercent);
         Point currentPos;
         if (pathPercent > 1)
             currentPos = cardEnd;

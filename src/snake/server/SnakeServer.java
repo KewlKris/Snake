@@ -29,6 +29,7 @@ public class SnakeServer extends Thread
             out1 = new DataOutputStream(client1.getOutputStream());
             client1List = new SnakeServerListener(in1, 1);
             client1List.start();
+            System.out.println("Client 1 up!");
             if (gametype == SnakeGame.MULTI_HOST)
             {
                 client2 = server.accept();
@@ -38,7 +39,11 @@ public class SnakeServer extends Thread
                 //client2Write = new SnakeServerWriter(new DataOutputStream(client2.getOutputStream()));
                 client2List.start();
                 //client2Write.start();
+                System.out.println("Client 2 up!");
             }
+            if ((gametype == 4) && ((SnakeServer.client1 != null) && (SnakeServer.client2 != null)))
+                SnakeGame.isPaused = false;
+            System.out.println("left!");
             
             
         } catch (IOException e)
@@ -89,6 +94,11 @@ public class SnakeServer extends Thread
     
     public static void sendStart(long s)
     {
+        while(SnakeGame.isPaused)
+        {
+
+        }
+        System.out.println("past wait");
         try
         {
             out1.writeInt(5); //Command ID
