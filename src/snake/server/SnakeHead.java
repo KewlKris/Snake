@@ -40,9 +40,15 @@ public class SnakeHead extends SnakeBody
                     break;
                 case FoodID: //If it's food, eat it and grow
                     if (this.keyBinding == 1)
+                    {
                         SnakeGame.score += 10;
+                        SnakeServer.setScore(1, SnakeGame.score);
+                    }
                     else
+                    {
                         SnakeGame.score2 += 10;
+                        SnakeServer.setScore(2, SnakeGame.score);
+                    }
                     SnakeGame.food.resetFood();
                     SnakeTimer.TICKRATE -= snake.SnakeSettings.TICKRATE_DECLINE;
                     appendChild(3);

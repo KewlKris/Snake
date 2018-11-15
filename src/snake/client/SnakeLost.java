@@ -17,7 +17,7 @@ public class SnakeLost
     
     public static void gameLost(int l, long lTime)
     {
-        lostTime = Instant.ofEpochSecond(lTime);
+        lostTime = Instant.ofEpochMilli(lTime);
         loser = l;
     }
     
@@ -35,6 +35,7 @@ public class SnakeLost
         if (lostTime == null)
             return;
         float pathPercent = (((Instant.now().toEpochMilli()-lostTime.toEpochMilli())/1000f) / transitionTime);
+        System.out.println(pathPercent);
         Point currentPos;
         if (pathPercent > 1)
             currentPos = cardEnd;

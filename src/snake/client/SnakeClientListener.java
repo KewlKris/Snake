@@ -16,6 +16,7 @@ public class SnakeClientListener extends Thread
         4 - Send tiles {[4] id, [4] number of objects, [...] objects}
         5 - Start game {[4] id, [4] game type, [8] start time}
         6 - Lose Game  {[4] id, [4] id of loser, [8] end time}
+        7 - Set score  {[4] id, [4] id of snake, [4] value}
         */
         try
         {
@@ -32,6 +33,17 @@ public class SnakeClientListener extends Thread
                         break;
                     case 6:
                         SnakeGame.lostGame(in.readInt(), in.readLong());
+                        break;
+                    case 7:
+                        switch(in.readInt())
+                        {
+                            case 1:
+                                SnakeGame.score = in.readInt();
+                                break;
+                            case 2:
+                                SnakeGame.score = in.readInt();
+                                break;
+                        }
                         break;
                 }
             }

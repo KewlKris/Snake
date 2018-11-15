@@ -26,12 +26,14 @@ public class Snake
         frame = new snake.client.SnakeFrame();
         frame.setVisible(true);
         
+        /*
         snake.server.SnakeGame.startGame(snake.server.SnakeGame.MULTI_SAME_SCREEN, 27010);
         new snake.server.SnakeServer().start();
         
         snake.client.SnakeClient.connect("127.0.0.1", 27010);
         
         snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
+        */
         
     }
     

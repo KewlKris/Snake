@@ -47,6 +47,27 @@ public class SnakeServer extends Thread
         }
     }
     
+    public static void setScore(int id, int score)
+    {
+        try
+        {
+            if (id == 1)
+            {
+                out1.writeInt(7); //Command ID
+                out1.writeInt(id);
+                out1.writeInt(score);
+            } else
+            {
+                out2.writeInt(7); //Command ID
+                out2.writeInt(id);
+                out2.writeInt(score);
+            }
+        } catch (IOException e)
+        {
+            
+        }
+    }
+    
     public static void sendLost(int id, long l)
     {
         try
