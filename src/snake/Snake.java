@@ -1,3 +1,7 @@
+//Christopher Chamberlain and Abhishek Choudhury
+//AP Computer Science
+//Period 3
+
 package snake;
 
 import java.awt.Dimension;

@@ -3,6 +3,7 @@ package snake.server;
 import java.io.*;
 import java.net.*;
 import java.awt.*;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class SnakeServer extends Thread
@@ -14,9 +15,16 @@ public class SnakeServer extends Thread
     public static DataInputStream in1, in2;
     public static DataOutputStream out1, out2;
     
+    int gametype2, port2;
+    
+    public SnakeServer(int g, int p)
+    {
+        gametype2 = g;
+        port2 = p;
+    }
     public void run()
     {
-        startServer(SnakeGame.GAME_TYPE, SnakeGame.port);
+        startServer(gametype2, port2);
     }
     
     public static void startServer(int gametype, int port)
@@ -41,9 +49,10 @@ public class SnakeServer extends Thread
                 //client2Write.start();
                 System.out.println("Client 2 up!");
             }
-            if ((gametype == 4) && ((SnakeServer.client1 != null) && (SnakeServer.client2 != null)))
-                SnakeGame.isPaused = false;
             System.out.println("left!");
+            
+            SnakeGame.startGame(gametype, port);
+            sendStart(Instant.now().toEpochMilli());
             
             
         } catch (IOException e)
@@ -94,11 +103,6 @@ public class SnakeServer extends Thread
     
     public static void sendStart(long s)
     {
-        while(SnakeGame.isPaused)
-        {
-
-        }
-        System.out.println("past wait");
         try
         {
             out1.writeInt(5); //Command ID
@@ -110,9 +114,10 @@ public class SnakeServer extends Thread
                 out2.writeInt(SnakeGame.GAME_TYPE);
                 out2.writeLong(s);
             }
+            System.out.println("started");
         } catch (IOException e)
         {
-            
+            e.printStackTrace();
         }
     }
     

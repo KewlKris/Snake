@@ -290,12 +290,13 @@ public class SnakeFrame extends javax.swing.JFrame
                 return;
             }
             //Start Server
-            snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE, 27010);
-            new snake.server.SnakeServer().start();
+            //snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE, 27010);
+            snake.server.SnakeServer s = new snake.server.SnakeServer(SnakeGame.SINGLE, 27010);
+            s.start();
             
             //Start host computer's client
             snake.client.SnakeClient.connect("127.0.0.1", 27010);
-            snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
+            //snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
             return;
         }
         if (multiButton.isSelected())
@@ -305,12 +306,13 @@ public class SnakeFrame extends javax.swing.JFrame
             
             if (hostButton.isSelected())
             {
-                snake.server.SnakeGame.startGame(snake.server.SnakeGame.MULTI_HOST, port);
-                new snake.server.SnakeServer().start();
+                //snake.server.SnakeGame.startGame(snake.server.SnakeGame.MULTI_HOST, port);
+                snake.server.SnakeServer s = new snake.server.SnakeServer(SnakeGame.MULTI_HOST, 27010);
+                s.start();
                 
                 //Start host computer's client
                 snake.client.SnakeClient.connect("127.0.0.1", port);
-                snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
+                //snake.server.SnakeServer.sendStart(Instant.now().toEpochMilli());
             }
             if (joinButton.isSelected())
             {
