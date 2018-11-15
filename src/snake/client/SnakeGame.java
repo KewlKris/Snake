@@ -8,7 +8,7 @@ import java.time.Instant;
 public class SnakeGame
 {
     public static boolean gameInProgress = false;
-    public static snake.SnakeTile[][] grid = new snake.SnakeTile[snake.SnakeSettings.GRID_SIZE.height][snake.SnakeSettings.GRID_SIZE.width];
+    public static snake.SnakeTile[] activeTiles = new snake.SnakeTile[0];
     public static int score = 0;
     public static int score2 = 0;
     public static Instant startTime;
@@ -33,6 +33,14 @@ public class SnakeGame
         STATUS = IN_PROGRESS;
     }
     
+    public static void drawTiles(Graphics g)
+    {
+        for(snake.SnakeTile tile : activeTiles)
+        {
+            SnakeView.setTile(g, tile.getColor(), tile.pos.x, tile.pos.y);
+        }
+    }
+    
     public static void drawTime(Graphics g)
     {
         if (STATUS == GAME_LOST || !gameInProgress)
@@ -51,12 +59,12 @@ public class SnakeGame
         }
     }
     
-    public static void lostGame(int l)
+    public static void lostGame(int l, long time)
     {
         looserID = l;
         stopGame();
         STATUS = GAME_LOST;
-        SnakeLost.gameLost(l);
+        SnakeLost.gameLost(l, time);
     }
     
     public static void stopGame()
@@ -64,9 +72,8 @@ public class SnakeGame
         Instant currentTime = Instant.now();
         finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         gameInProgress = false;
-        timer.cancel(true);
-        Snake.frame.startButton.setEnabled(true);
-        Snake.frame.stopButton.setEnabled(false);
+        snake.Snake.frame.startButton.setEnabled(true);
+        snake.Snake.frame.stopButton.setEnabled(false);
     }
     
     private static void delay(float seconds)

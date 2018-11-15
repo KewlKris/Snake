@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class Snake
 {
-    public static SnakeFrame frame;
+    public static snake.client.SnakeFrame frame;
     public static void main(String[] args) throws
             ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException
@@ -20,7 +20,7 @@ public class Snake
         SnakeSettings.TICKRATE_DECLINE = 0.001f;
         
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        frame = new SnakeFrame();
+        frame = new snake.client.SnakeFrame();
         frame.setVisible(true);
     }
     

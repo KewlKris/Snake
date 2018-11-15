@@ -12,9 +12,9 @@ public class SnakeView
     public static void drawBorder(Graphics g)
     {
         //Variables for readability
-        int bSize = SnakeSettings.BLOCK_SIZE;
-        int width = SnakeSettings.GRID_SIZE.width;
-        int height = SnakeSettings.GRID_SIZE.height;
+        int bSize = snake.SnakeSettings.BLOCK_SIZE;
+        int width = snake.SnakeSettings.GRID_SIZE.width;
+        int height = snake.SnakeSettings.GRID_SIZE.height;
         
         //Draw a border around the play area, not including any play area pixels.
         g.setColor(Color.black);
@@ -24,9 +24,9 @@ public class SnakeView
     public static void fillBackground(Graphics g)
     {
         //Variables for readability
-        int bSize = SnakeSettings.BLOCK_SIZE;
-        int width = SnakeSettings.GRID_SIZE.width;
-        int height = SnakeSettings.GRID_SIZE.height;
+        int bSize = snake.SnakeSettings.BLOCK_SIZE;
+        int width = snake.SnakeSettings.GRID_SIZE.width;
+        int height = snake.SnakeSettings.GRID_SIZE.height;
         
         //Fill the play area with the background
         g.setColor(Color.WHITE);
@@ -36,9 +36,9 @@ public class SnakeView
     public static void setTile(Graphics g, Color c, int x, int y)
     {
         //Variables for readability
-        int bSize = SnakeSettings.BLOCK_SIZE;
-        int width = SnakeSettings.GRID_SIZE.width;
-        int height = SnakeSettings.GRID_SIZE.height;
+        int bSize = snake.SnakeSettings.BLOCK_SIZE;
+        int width = snake.SnakeSettings.GRID_SIZE.width;
+        int height = snake.SnakeSettings.GRID_SIZE.height;
         int inset = 1;
         
         //Set a tile to a given color
@@ -53,9 +53,9 @@ public class SnakeView
     public static void drawGrid(Graphics g)
     {
         //Variables for readability
-        int bSize = SnakeSettings.BLOCK_SIZE;
-        int width = SnakeSettings.GRID_SIZE.width;
-        int height = SnakeSettings.GRID_SIZE.height;
+        int bSize = snake.SnakeSettings.BLOCK_SIZE;
+        int width = snake.SnakeSettings.GRID_SIZE.width;
+        int height = snake.SnakeSettings.GRID_SIZE.height;
         
         //Color init
         g.setColor(new Color(220, 220, 220));

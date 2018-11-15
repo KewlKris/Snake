@@ -11,14 +11,14 @@ public class SnakeLost
 {
     public static final float BLINK_RATE = 0.25f;
     private static final Font LOST_FONT = new Font(Font.SANS_SERIF, Font.TYPE1_FONT, 36);
-    private static int looser;
+    private static int loser;
     
     public static Instant lostTime;
     
     public static void gameLost(int l, long lTime)
     {
         lostTime = Instant.ofEpochSecond(lTime);
-        looser = l;
+        loser = l;
     }
     
     /**
@@ -53,7 +53,7 @@ public class SnakeLost
         //Draw the text
         g.setFont(LOST_FONT);
         String name = "";
-        if (looser == 1)
+        if (loser == 1)
             name = "Red Snake";
         else 
             name = "Blue Snake";

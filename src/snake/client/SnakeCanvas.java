@@ -50,11 +50,13 @@ public class SnakeCanvas extends Canvas
                 break;
             case SnakeGame.IN_PROGRESS:
                 drawBasics(buf);
-                SnakeGame.drawEntities(buf);
+                //SnakeGame.drawEntities(buf);
+                SnakeGame.drawTiles(buf);
                 break;
             case SnakeGame.GAME_LOST:
                 drawBasics(buf);
-                SnakeGame.drawEntities(buf);
+                //SnakeGame.drawEntities(buf);
+                SnakeGame.drawTiles(buf);
                 SnakeLost.drawCard(buf);
                 break;
         }
