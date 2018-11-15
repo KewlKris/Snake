@@ -1,8 +1,8 @@
 package snake.server;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
-import static snake.SnakeGame.collisions;
 
 /**
  *
@@ -19,6 +19,7 @@ abstract public class SnakeBody
     public int number;
     public int keyBinding;
     
+    /*
     public void draw(Graphics g)
     {
         SnakeView.setTile(g, color, pos.x, pos.y);
@@ -27,6 +28,7 @@ abstract public class SnakeBody
             child.draw(g);
         }
     }
+    */
     
     public void move()
     {
@@ -98,10 +100,24 @@ abstract public class SnakeBody
     {
         if (delayed)
             return;
-        collisions[pos.y][pos.x] = Grid.SnakeID;
+        SnakeGame.collisions[pos.y][pos.x] = Grid.SnakeID;
         if(hasChild)
         {
             child.arrayCheck();
         }
+    }
+    
+    public ArrayList<Point> getPos(ArrayList<Point> a)
+    {
+        if (a == null)
+        {
+            a = new ArrayList<Point>();
+        }
+        
+        a.add(pos);
+        if (hasChild)
+            child.getPos(a);
+        
+        return a;
     }
 }

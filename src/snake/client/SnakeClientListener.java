@@ -4,7 +4,13 @@ import java.io.*;
 
 public class SnakeClientListener extends Thread
 {
-    public void run(DataInputStream in)
+    private DataInputStream in;
+    public SnakeClientListener(DataInputStream i)
+    {
+        in = i;
+    }
+    
+    public void run()
     {
         /*
         4 - Send tiles {[4] id, [4] number of objects, [...] objects}

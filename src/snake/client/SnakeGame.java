@@ -29,6 +29,7 @@ public class SnakeGame
         gameInProgress = true;
         finalTime = 0;
         startTime = Instant.ofEpochSecond(strtTme);
+        System.out.println(startTime.toEpochMilli());
         
         STATUS = IN_PROGRESS;
     }

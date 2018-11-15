@@ -18,6 +18,12 @@ public class SnakeClient
         try
         {
             socket = new Socket(host, port);
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            
+            SnakeClientListener listener = new SnakeClientListener(in);
+            listener.start();
+            
         } catch (UnknownHostException e)
         {
             e.printStackTrace();

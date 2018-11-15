@@ -44,7 +44,7 @@ public class SnakeHead extends SnakeBody
                     else
                         SnakeGame.score2 += 10;
                     SnakeGame.food.resetFood();
-                    SnakeTimer.TICKRATE -= SnakeSettings.TICKRATE_DECLINE;
+                    SnakeTimer.TICKRATE -= snake.SnakeSettings.TICKRATE_DECLINE;
                     appendChild(3);
                     break;
             }
@@ -124,17 +124,71 @@ public class SnakeHead extends SnakeBody
         }
         return false;
     }
+    /**
+     * Change the direction from a raw key code
+     * @param i The key code value
+     * @return Whether the change was successful or not
+     */
     
-    public ArrayList<Point> getPos(ArrayList<Point> a)
+    public boolean changeDirection(int i)
     {
-        if (a == null)
+        if (super.keyBinding == 1)
         {
-            a = new ArrayList<Point>();
+            switch(i)
+            {
+                case KeyEvent.VK_UP:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_DOWN:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_LEFT:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_RIGHT:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+                case KeyEvent.VK_ADD:
+                    appendChild();
+                    break;
+            }
+        } else
+        {
+            switch(i)
+            {
+                case KeyEvent.VK_W:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_S:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_A:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_D:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+                case KeyEvent.VK_ADD:
+                    appendChild();
+                    break;
+            }
         }
-        
-        a.add(pos);
-        getPos(a);
-        
-        return a;
+        return false;
     }
 }

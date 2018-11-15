@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import java.time.Instant;
+import java.util.ArrayList;
+import snake.SnakeTile;
 
 public class SnakeGame
 {
@@ -11,14 +13,15 @@ public class SnakeGame
     private static SnakeTimer timer;
     public static SnakeHead snake1;
     public static SnakeHead snake2;
-    public static Grid[][] collisions = new Grid[SnakeSettings.GRID_SIZE.height][SnakeSettings.GRID_SIZE.width];
+    public static Grid[][] collisions = new Grid[snake.SnakeSettings.GRID_SIZE.height][snake.SnakeSettings.GRID_SIZE.width];
     public static SnakeFood food;
     public static int score = 0;
     public static int score2 = 0;
     public static Instant startTime;
     public static int STATUS = 1;
     public static int GAME_TYPE;
-    public static SnakeHead looser;
+    public static SnakeHead loser;
+    public static int port;
     
     private static double finalTime;
     
@@ -27,18 +30,25 @@ public class SnakeGame
             SINGLE=1, SINGLE_WITH_BOT=2, MULTI_SAME_SCREEN=3, MULTI_HOST=4,
             MULTI_JOIN=5;
     
-    public static void startGame(int type)
+    public static void startGame(int type, int p)
     {
+        port = p;
+        GAME_TYPE = type;
+        
         //Create snakes
-        snake1 = new SnakeHead(new Point(36, 18), new Color(150, 0, 0), SnakeHead.RIGHT, 1);
-        snake2 = new SnakeHead(new Point(28, 18), new Color(0, 0, 150), SnakeHead.LEFT, 2);
+        snake1 = new SnakeHead(new Point(36, 18), SnakeTile.intToColor(SnakeTile.RED), SnakeHead.RIGHT, 1);
+        snake1.appendChild(3);
+        
+        if (GAME_TYPE != SINGLE)
+        {
+            snake2 = new SnakeHead(new Point(28, 18), SnakeTile.intToColor(SnakeTile.BLUE), SnakeHead.LEFT, 2);
+            snake2.appendChild(3);
+        }
         food = new SnakeFood();
         //SnakeSegment s1 = new SnakeSegment(snake1, true);
         //snake1.setChild(s1);
-        snake1.appendChild(3);
-        snake2.appendChild(3);
         
-        SnakeTimer.TICKRATE = SnakeSettings.DEFAULT_TICKRATE;
+        SnakeTimer.TICKRATE = snake.SnakeSettings.DEFAULT_TICKRATE;
         finalTime = 0;
         score = 0;
         startTime = Instant.now();
@@ -49,6 +59,7 @@ public class SnakeGame
         STATUS = IN_PROGRESS;
     }
     
+    /*
     public static void drawTime(Graphics g)
     {
         if (STATUS == GAME_LOST || !gameInProgress)
@@ -66,12 +77,14 @@ public class SnakeGame
             SnakeView.drawTime(g, 0d);
         }
     }
+    */
     
     public static void updateArray()
     {
         collisions = new Grid[collisions.length][collisions[0].length];
         snake1.arrayCheck();
-        snake2.arrayCheck();
+        if (GAME_TYPE != SINGLE)
+            snake2.arrayCheck();
         if (food != null)
             food.arrayCheck();
     }
@@ -83,43 +96,36 @@ public class SnakeGame
     public static void keyPresed(KeyEvent e)
     {
         snake1.changeDirection(e);
-        snake2.changeDirection(e);
-    }
-    
-    /**
-     * This method is to be called when the grid needs to be updated.
-     * @param g The Graphics object on which to draw the grid onto.
-     */
-    public static void drawEntities(Graphics g)
-    {
-        snake1.draw(g);
-        snake2.draw(g);
-        food.draw(g);
+        if (GAME_TYPE != SINGLE)
+            snake2.changeDirection(e);
     }
     
     public static void tick()
     {
         updateArray();
         snake1.move();
-        snake2.move();
+        if (GAME_TYPE != SINGLE)
+            snake2.move();
+        
+        SnakeServer.sendTiles();
     }
     
     public static void lostGame(SnakeHead l)
     {
-        looser = l;
+        loser = l;
+        
+        Instant currentTime = Instant.now();
+        finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
+        
         stopGame();
         STATUS = GAME_LOST;
-        SnakeLost.gameLost(l);
+        SnakeServer.sendLost(l.keyBinding, currentTime.toEpochMilli());
     }
     
     public static void stopGame()
     {
-        Instant currentTime = Instant.now();
-        finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         gameInProgress = false;
         timer.cancel(true);
-        Snake.frame.startButton.setEnabled(true);
-        Snake.frame.stopButton.setEnabled(false);
     }
     
     private static void delay(float seconds)
