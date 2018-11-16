@@ -47,7 +47,7 @@ public class SnakeHead extends SnakeBody
                     else
                     {
                         SnakeGame.score2 += 10;
-                        SnakeServer.setScore(2, SnakeGame.score);
+                        SnakeServer.setScore(2, SnakeGame.score2);
                     }
                     SnakeGame.food.resetFood();
                     SnakeTimer.TICKRATE -= snake.SnakeSettings.TICKRATE_DECLINE;

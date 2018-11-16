@@ -24,7 +24,7 @@ public class Snake
         SnakeSettings.GRID_SIZE = new Dimension(64, 36);
         SnakeSettings.BLOCK_SIZE = 10;
         SnakeSettings.DEFAULT_TICKRATE = 0.1f;
-        SnakeSettings.TICKRATE_DECLINE = 0.01f;
+        SnakeSettings.TICKRATE_DECLINE = 0.005f;
         
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         frame = new snake.client.SnakeFrame();

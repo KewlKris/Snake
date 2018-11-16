@@ -104,16 +104,19 @@ public class SnakeServer extends Thread
     {
         try
         {
-            if (id == 1)
+            if (SnakeGame.GAME_TYPE == 4)
             {
                 out1.writeInt(7); //Command ID
                 out1.writeInt(id);
                 out1.writeInt(score);
-            } else
-            {
                 out2.writeInt(7); //Command ID
                 out2.writeInt(id);
                 out2.writeInt(score);
+            } else
+            {
+                out1.writeInt(7); //Command ID
+                out1.writeInt(id);
+                out1.writeInt(score);
             }
         } catch (IOException e)
         {

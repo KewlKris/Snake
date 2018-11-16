@@ -45,7 +45,7 @@ public class SnakeClientListener extends Thread
                                 SnakeGame.score = in.readInt();
                                 break;
                             case 2:
-                                SnakeGame.score = in.readInt();
+                                SnakeGame.score2 = in.readInt();
                                 snake.Snake.frame.clientOut("Score update for Snake 2");
                                 break;
                         }
