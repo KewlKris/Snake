@@ -58,7 +58,6 @@ public class SnakeServer extends Thread
             out1 = new DataOutputStream(client1.getOutputStream());
             client1List = new SnakeServerListener(in1, 1);
             client1List.start();
-            System.out.println("Client 1 up!");
             if (gametype == SnakeGame.MULTI_HOST)
             {
                 client2 = server.accept();
@@ -68,9 +67,7 @@ public class SnakeServer extends Thread
                 //client2Write = new SnakeServerWriter(new DataOutputStream(client2.getOutputStream()));
                 client2List.start();
                 //client2Write.start();
-                System.out.println("Client 2 up!");
             }
-            System.out.println("left!");
             
             SnakeGame.startGame(gametype, port);
             sendStart(Instant.now().toEpochMilli());
