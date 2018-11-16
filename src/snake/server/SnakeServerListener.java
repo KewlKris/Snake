@@ -24,14 +24,21 @@ public class SnakeServerListener extends Thread
                 switch(i)
                 {
                     case 20: //Change Direction
+                        int d = in.readInt();
+                        if (SnakeGame.GAME_TYPE == SnakeGame.MULTI_SAME_SCREEN)
+                        {
+                            SnakeGame.snake1.changeDirection(d);
+                            SnakeGame.snake2.changeDirection(d);
+                            snake.Snake.frame.serverOut("Received direction change for same screen");
+                        }
                         if (snakeID == 1)
                         {
-                            SnakeGame.snake1.changeDirection(in.readInt());
+                            SnakeGame.snake1.changeDirection(d);
                             snake.Snake.frame.serverOut("Received direction change for Snake 1");
                         }
                         else
                         {
-                            SnakeGame.snake2.changeDirection(in.readInt());
+                            SnakeGame.snake2.changeDirection(d);
                             snake.Snake.frame.serverOut("Received direction change for Snake 2");
                         }
                         break;

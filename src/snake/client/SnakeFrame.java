@@ -369,7 +369,10 @@ public class SnakeFrame extends javax.swing.JFrame
             }
             if (sameButton.isSelected())
             {
+                snake.server.SnakeServer s = new snake.server.SnakeServer(SnakeGame.MULTI_SAME_SCREEN, 27010);
+                s.start();
                 
+                snake.client.SnakeClient.connect("127.0.0.1", port);
             }
         }
     }//GEN-LAST:event_startButtonActionPerformed
