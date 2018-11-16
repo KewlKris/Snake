@@ -1,6 +1,7 @@
 //Christopher Chamberlain and Abhishek Choudhury
 //AP Computer Science
 //Period 3
+//11-16-2018
 
 package snake;
 
@@ -31,7 +32,7 @@ public class Snake
         frame = new snake.client.SnakeFrame();
         frame.setVisible(true);
         
-        /*
+        /* Old test
         snake.server.SnakeGame.startGame(snake.server.SnakeGame.MULTI_SAME_SCREEN, 27010);
         new snake.server.SnakeServer().start();
         
