@@ -74,8 +74,14 @@ public class SnakeLost
         String name = "";
         if (loser == 1)
             name = "Red Snake";
-        else 
+        else if (loser == 2)
             name = "Blue Snake";
+        else
+        {
+            g.drawString("Both lost!", currentPos.x-85, currentPos.y+15);
+            return;
+        }
+            
         g.drawString(name + " lost!", currentPos.x-135, currentPos.y+15);
         
     }

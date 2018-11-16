@@ -29,6 +29,8 @@ public class SnakeGame
         gameInProgress = true;
         finalTime = 0;
         startTime = Instant.ofEpochMilli(strtTme);
+        score = 0;
+        score2 = 0;
         
         STATUS = IN_PROGRESS;
         snake.Snake.frame.clientOut(String.format("Started game of type %d at time %d", type, strtTme));

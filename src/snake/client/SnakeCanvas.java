@@ -9,6 +9,7 @@ public class SnakeCanvas extends Canvas
     Graphics buf;
     public SnakeCanvas()
     {
+        //Create the window
         this.setSize(snake.SnakeSettings.WINDOW_SIZE);
         this.setBackground(new Color(210, 210, 210));
         
@@ -17,7 +18,7 @@ public class SnakeCanvas extends Canvas
     
     private class SnakeListener implements KeyListener
     {
-        public void keyPressed(KeyEvent e)
+        public void keyPressed(KeyEvent e) //On key pressed, report to server
         {
             //System.out.println(e.getKeyChar());
             //System.out.println(e.getExtendedKeyCode());
@@ -33,6 +34,7 @@ public class SnakeCanvas extends Canvas
         {
             try
             {
+                //The frameBuffer keeps the canvas from flickering
                 frameBuffer = createImage(this.getWidth(), this.getHeight());
                 buf = frameBuffer.getGraphics();
             } catch (NullPointerException e)
@@ -40,6 +42,7 @@ public class SnakeCanvas extends Canvas
                 return;
             }
         }
+        //Draw the background to clear previous frame
         buf.setColor(this.getBackground());
         buf.fillRect(0, 0, snake.SnakeSettings.WINDOW_SIZE.width, snake.SnakeSettings.WINDOW_SIZE.height);
         
@@ -61,10 +64,14 @@ public class SnakeCanvas extends Canvas
                 break;
         }
         
-        g.drawImage(frameBuffer, 0, 0, this);
+        g.drawImage(frameBuffer, 0, 0, this); //Draw the buffer
         repaint();
     }
     
+    /**
+     * Draws the basic grid
+     * @param g The Graphics object
+     */
     private void drawBasics(Graphics g)
     {
         SnakeView.drawBorder(g);

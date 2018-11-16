@@ -5,7 +5,7 @@ import java.io.*;
 
 public class SnakeTile
 {
-    public static int RED=1, BLUE=2, BLACK=3, YELLOW=4;
+    public static int RED=1, BLUE=2, BLACK=3, YELLOW=4; //Color palette
     
     public Point pos;
     public int color;
@@ -27,6 +27,11 @@ public class SnakeTile
         return intToColor(color);
     }
     
+    /**
+     * Write this tile to the DataOutputStream
+     * @param out The DataOutputStream
+     * @throws IOException 
+     */
     public void writeToStream(DataOutputStream out) throws IOException
     {
         //Position

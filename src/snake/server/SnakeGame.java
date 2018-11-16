@@ -25,6 +25,8 @@ public class SnakeGame
     
     private static double finalTime;
     
+    private static int pathfinderID;
+    
     public static final int WAITING_TO_START=1, IN_PROGRESS=2, GAME_LOST=3;
     public static final int 
             SINGLE=1, SINGLE_WITH_BOT=2, MULTI_SAME_SCREEN=3, MULTI_HOST=4,
@@ -35,6 +37,11 @@ public class SnakeGame
         resetVars();
         port = p;
         GAME_TYPE = type;
+        
+        if (GAME_TYPE == SINGLE_WITH_BOT)
+        {
+            pathfinderID = snake.Snake.frame.pathBox.getSelectedIndex();
+        }
         
         //Create snakes
         snake1 = new SnakeHead(new Point(36, 18), SnakeTile.intToColor(SnakeTile.RED), SnakeHead.RIGHT, 1);
@@ -104,11 +111,38 @@ public class SnakeGame
     public static void tick()
     {
         updateArray();
+        
+        if (GAME_TYPE == SINGLE_WITH_BOT)
+        {
+            int dir;
+            switch(pathfinderID)
+            {
+                case 0:
+                    dir = snake.server.pathfinding.Simple.getNextDirection(collisions, snake2.pos, food.pos);
+                    if (dir == -1)
+                        break;
+                    snake2.direction = dir;
+                    break;
+                case 1:
+                    dir = snake.server.pathfinding.Random.getNextDirection(collisions, snake2.pos, food.pos);
+                    if (dir == -1)
+                        break;
+                    snake2.direction = dir;
+            }
+        }
+        
         snake1.move();
         if (GAME_TYPE != SINGLE)
             snake2.move();
         
         SnakeServer.sendTiles();
+        if (GAME_TYPE != SINGLE)
+        {
+            if (snake1.pos.equals(snake2.pos))
+            {
+                lostGame(null);
+            }
+        }
     }
     
     public static void lostGame(SnakeHead l)
@@ -120,6 +154,11 @@ public class SnakeGame
         
         stopGame();
         STATUS = GAME_LOST;
+        if (l == null)
+        {
+            SnakeServer.sendLost(3, currentTime.toEpochMilli());
+            return;
+        }
         SnakeServer.sendLost(l.keyBinding, currentTime.toEpochMilli());
     }
     

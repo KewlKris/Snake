@@ -25,7 +25,7 @@ public class SnakeFrame extends javax.swing.JFrame
     public void serverOut(String text)
     {
         serverOut.setText(serverOut.getText() + text + '\n');
-        JScrollBar bar = jScrollPane2.getVerticalScrollBar();
+        JScrollBar bar = serverScroll.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
     }
     public void flushServer()
@@ -60,7 +60,7 @@ public class SnakeFrame extends javax.swing.JFrame
         sameButton = new javax.swing.JRadioButton();
         pathLabel = new javax.swing.JLabel();
         pathBox = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        serverScroll = new javax.swing.JScrollPane();
         serverOut = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -139,10 +139,20 @@ public class SnakeFrame extends javax.swing.JFrame
         hostGroup.add(hostButton);
         hostButton.setText("Host Game");
         hostButton.setEnabled(false);
+        hostButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hostButtonActionPerformed(evt);
+            }
+        });
 
         hostGroup.add(joinButton);
         joinButton.setText("Join Game");
         joinButton.setEnabled(false);
+        joinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                joinButtonActionPerformed(evt);
+            }
+        });
 
         ipLabel.setText("IP Address:");
         ipLabel.setEnabled(false);
@@ -165,20 +175,20 @@ public class SnakeFrame extends javax.swing.JFrame
         });
 
         cpuButton.setText("Against CPU");
-        cpuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpuButtonActionPerformed(evt);
-            }
-        });
 
         hostGroup.add(sameButton);
         sameButton.setSelected(true);
         sameButton.setText("Same Screen");
         sameButton.setEnabled(false);
+        sameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sameButtonActionPerformed(evt);
+            }
+        });
 
         pathLabel.setText("Pathfinder:");
 
-        pathBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "A*" }));
+        pathBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "Random" }));
 
         javax.swing.GroupLayout setPanelLayout = new javax.swing.GroupLayout(setPanel);
         setPanel.setLayout(setPanelLayout);
@@ -244,11 +254,12 @@ public class SnakeFrame extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        serverScroll.setBorder(javax.swing.BorderFactory.createTitledBorder("Server Output"));
+
         serverOut.setEditable(false);
         serverOut.setColumns(20);
         serverOut.setRows(5);
-        serverOut.setBorder(javax.swing.BorderFactory.createTitledBorder("Server Output"));
-        jScrollPane2.setViewportView(serverOut);
+        serverScroll.setViewportView(serverOut);
 
         javax.swing.GroupLayout setTabLayout = new javax.swing.GroupLayout(setTab);
         setTab.setLayout(setTabLayout);
@@ -260,7 +271,7 @@ public class SnakeFrame extends javax.swing.JFrame
                     .addGroup(setTabLayout.createSequentialGroup()
                         .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(serverScroll, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         setTabLayout.setVerticalGroup(
@@ -269,7 +280,7 @@ public class SnakeFrame extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(serverScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -307,20 +318,34 @@ public class SnakeFrame extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void cpuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpuButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpuButtonActionPerformed
-
     private void multiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiButtonActionPerformed
         hostButton.setEnabled(true);
-        ipField.setEnabled(true);
         joinButton.setEnabled(true);
-        portField.setEnabled(true);
         sameButton.setEnabled(true);
-        ipLabel.setEnabled(true);
-        portLabel.setEnabled(true);
+        
+        if (hostButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (joinButton.isSelected())
+        {
+            ipLabel.setEnabled(true);
+            ipField.setEnabled(true);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (sameButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(false);
+            portField.setEnabled(false);
+        }
         
         cpuButton.setEnabled(false);
+        pathLabel.setEnabled(false);
+        pathBox.setEnabled(false);
     }//GEN-LAST:event_multiButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
@@ -334,7 +359,10 @@ public class SnakeFrame extends javax.swing.JFrame
         {
             if (cpuButton.isSelected())
             {
-                //snake.server.SnakeGame.startGame(snake.server.SnakeGame.SINGLE_WITH_BOT);
+                snake.server.SnakeServer s = new snake.server.SnakeServer(SnakeGame.SINGLE_WITH_BOT, 27010);
+                s.start();
+                
+                snake.client.SnakeClient.connect("127.0.0.1", 27010);
                 return;
             }
             //Start Server
@@ -393,7 +421,75 @@ public class SnakeFrame extends javax.swing.JFrame
         portLabel.setEnabled(false);
 
         cpuButton.setEnabled(true);
+        pathLabel.setEnabled(true);
+        pathBox.setEnabled(true);
     }//GEN-LAST:event_singleButtonActionPerformed
+
+    private void sameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sameButtonActionPerformed
+        if (hostButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (joinButton.isSelected())
+        {
+            ipLabel.setEnabled(true);
+            ipField.setEnabled(true);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (sameButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(false);
+            portField.setEnabled(false);
+        }
+    }//GEN-LAST:event_sameButtonActionPerformed
+
+    private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinButtonActionPerformed
+        if (hostButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (joinButton.isSelected())
+        {
+            ipLabel.setEnabled(true);
+            ipField.setEnabled(true);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (sameButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(false);
+            portField.setEnabled(false);
+        }
+    }//GEN-LAST:event_joinButtonActionPerformed
+
+    private void hostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hostButtonActionPerformed
+        if (hostButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (joinButton.isSelected())
+        {
+            ipLabel.setEnabled(true);
+            ipField.setEnabled(true);
+            portLabel.setEnabled(true);
+            portField.setEnabled(true);
+        } else if (sameButton.isSelected())
+        {
+            ipLabel.setEnabled(false);
+            ipField.setEnabled(false);
+            portLabel.setEnabled(false);
+            portField.setEnabled(false);
+        }
+    }//GEN-LAST:event_hostButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,18 +538,18 @@ public class SnakeFrame extends javax.swing.JFrame
     private javax.swing.JLabel ipLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton joinButton;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JRadioButton multiButton;
-    private javax.swing.JComboBox<String> pathBox;
+    public javax.swing.JComboBox<String> pathBox;
     private javax.swing.JLabel pathLabel;
     private javax.swing.ButtonGroup playerGroup;
     private javax.swing.JTextField portField;
     private javax.swing.JLabel portLabel;
     private javax.swing.JRadioButton sameButton;
     private javax.swing.JTextArea serverOut;
+    private javax.swing.JScrollPane serverScroll;
     private javax.swing.JPanel setPanel;
     private javax.swing.JPanel setTab;
     private javax.swing.JRadioButton singleButton;

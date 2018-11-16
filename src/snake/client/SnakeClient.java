@@ -10,7 +10,7 @@ public class SnakeClient
     private static DataOutputStream out;
     
     /*
-    20 - Change Direction
+    20 - Change Direction  {[4] id, [4] direction}
     */
     
     public static boolean connect(String host, int port)
