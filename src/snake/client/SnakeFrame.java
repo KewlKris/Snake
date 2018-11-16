@@ -25,7 +25,7 @@ public class SnakeFrame extends javax.swing.JFrame
     public void serverOut(String text)
     {
         serverOut.setText(serverOut.getText() + text + '\n');
-        JScrollBar bar = serverScroll.getVerticalScrollBar();
+        JScrollBar bar = jScrollPane2.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
     }
     public void flushServer()
@@ -60,7 +60,7 @@ public class SnakeFrame extends javax.swing.JFrame
         sameButton = new javax.swing.JRadioButton();
         pathLabel = new javax.swing.JLabel();
         pathBox = new javax.swing.JComboBox<>();
-        serverScroll = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         serverOut = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -248,7 +248,7 @@ public class SnakeFrame extends javax.swing.JFrame
         serverOut.setColumns(20);
         serverOut.setRows(5);
         serverOut.setBorder(javax.swing.BorderFactory.createTitledBorder("Server Output"));
-        serverScroll.setViewportView(serverOut);
+        jScrollPane2.setViewportView(serverOut);
 
         javax.swing.GroupLayout setTabLayout = new javax.swing.GroupLayout(setTab);
         setTab.setLayout(setTabLayout);
@@ -260,7 +260,7 @@ public class SnakeFrame extends javax.swing.JFrame
                     .addGroup(setTabLayout.createSequentialGroup()
                         .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(serverScroll, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         setTabLayout.setVerticalGroup(
@@ -269,7 +269,7 @@ public class SnakeFrame extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(serverScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -322,18 +322,6 @@ public class SnakeFrame extends javax.swing.JFrame
         
         cpuButton.setEnabled(false);
     }//GEN-LAST:event_multiButtonActionPerformed
-
-    private void singleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singleButtonActionPerformed
-        hostButton.setEnabled(false);
-        ipField.setEnabled(false);
-        joinButton.setEnabled(false);
-        portField.setEnabled(false);
-        sameButton.setEnabled(false);
-        ipLabel.setEnabled(false);
-        portLabel.setEnabled(false);
-        
-        cpuButton.setEnabled(true);
-    }//GEN-LAST:event_singleButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         flushClient();
@@ -392,6 +380,18 @@ public class SnakeFrame extends javax.swing.JFrame
         SnakeGame.stopGame();
     }//GEN-LAST:event_stopButtonActionPerformed
 
+    private void singleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singleButtonActionPerformed
+        hostButton.setEnabled(false);
+        ipField.setEnabled(false);
+        joinButton.setEnabled(false);
+        portField.setEnabled(false);
+        sameButton.setEnabled(false);
+        ipLabel.setEnabled(false);
+        portLabel.setEnabled(false);
+
+        cpuButton.setEnabled(true);
+    }//GEN-LAST:event_singleButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +439,7 @@ public class SnakeFrame extends javax.swing.JFrame
     private javax.swing.JLabel ipLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton joinButton;
     private javax.swing.JMenuBar menuBar;
@@ -450,7 +451,6 @@ public class SnakeFrame extends javax.swing.JFrame
     private javax.swing.JLabel portLabel;
     private javax.swing.JRadioButton sameButton;
     private javax.swing.JTextArea serverOut;
-    private javax.swing.JScrollPane serverScroll;
     private javax.swing.JPanel setPanel;
     private javax.swing.JPanel setTab;
     private javax.swing.JRadioButton singleButton;

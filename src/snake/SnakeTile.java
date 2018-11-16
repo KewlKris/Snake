@@ -27,18 +27,12 @@ public class SnakeTile
         return intToColor(color);
     }
     
-    public void writeToStream(DataOutputStream out)
+    public void writeToStream(DataOutputStream out) throws IOException
     {
-        try
-        {
-            //Position
-            out.writeInt(pos.x);
-            out.writeInt(pos.y);
-            out.writeInt(color);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        //Position
+        out.writeInt(pos.x);
+        out.writeInt(pos.y);
+        out.writeInt(color);
     }
     
     public static Color intToColor(int c)

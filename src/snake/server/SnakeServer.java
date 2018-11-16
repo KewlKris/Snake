@@ -27,6 +27,7 @@ public class SnakeServer extends Thread
     public void run()
     {
         startServer(gametype2, port2);
+        snake.Snake.frame.serverOut(String.format("Starting server thread with port: %d and gametype: %d", port2, gametype2));
     }
     
     public static void closeAll()
@@ -39,8 +40,10 @@ public class SnakeServer extends Thread
             in2.close();
             out2.close();
             client2.close();
+            snake.Snake.frame.serverOut("Closed sockets");
         } catch (IOException e)
         {
+            snake.Snake.frame.serverOut("Error closing sockets");
             e.printStackTrace();
         }
     }
@@ -53,28 +56,39 @@ public class SnakeServer extends Thread
             {
                 server = new ServerSocket(port);
             }
+            snake.Snake.frame.serverOut("ServerSocket created");
+            snake.Snake.frame.serverOut("Waiting for client 1...");
             client1 = server.accept();
+            snake.Snake.frame.serverOut(String.format("Client 1 at %s connected", client1.getInetAddress().getCanonicalHostName()));
             in1 = new DataInputStream(client1.getInputStream());
+            snake.Snake.frame.serverOut("Client 1 InputStream opened");
             out1 = new DataOutputStream(client1.getOutputStream());
+            snake.Snake.frame.serverOut("Client 1 OutputStream opened");
             client1List = new SnakeServerListener(in1, 1);
             client1List.start();
+            snake.Snake.frame.serverOut("Client 1 listener started");
             if (gametype == SnakeGame.MULTI_HOST)
             {
+                snake.Snake.frame.serverOut("Waiting for client 2...");
                 client2 = server.accept();
+                snake.Snake.frame.serverOut(String.format("Client 2 at %s connected", client2.getInetAddress().getCanonicalHostName()));
                 in2 = new DataInputStream(client2.getInputStream());
+                snake.Snake.frame.serverOut("Client 2 InputStream opened");
                 out2 = new DataOutputStream(client2.getOutputStream());
+                snake.Snake.frame.serverOut("Client 2 OutputStream opened");
                 client2List = new SnakeServerListener(in2, 2);
-                //client2Write = new SnakeServerWriter(new DataOutputStream(client2.getOutputStream()));
                 client2List.start();
-                //client2Write.start();
+                snake.Snake.frame.serverOut("Client 2 listener started");
             }
             
             SnakeGame.startGame(gametype, port);
+            snake.Snake.frame.serverOut("Starting master");
             sendStart(Instant.now().toEpochMilli());
             
             
         } catch (IOException e)
         {
+            snake.Snake.frame.serverOut("Error occurred in starting server");
             e.printStackTrace();
         }
     }
@@ -86,14 +100,17 @@ public class SnakeServer extends Thread
             if (client1 != null)
             {
                 out1.writeInt(8);
+                snake.Snake.frame.serverOut("Sent end game code to client 1");
             }
             if (client2 != null)
             {
                 out2.writeInt(8);
+                snake.Snake.frame.serverOut("Sent end game code to client 2");
             }
         } catch (IOException e)
         {
-            e.printStackTrace();
+            snake.Snake.frame.serverOut("Client escape code exception!");
+            //e.printStackTrace();
         }
     }
     
@@ -109,15 +126,17 @@ public class SnakeServer extends Thread
                 out2.writeInt(7); //Command ID
                 out2.writeInt(id);
                 out2.writeInt(score);
+                snake.Snake.frame.serverOut(String.format("Score update for snake %d", id));
             } else
             {
                 out1.writeInt(7); //Command ID
                 out1.writeInt(id);
                 out1.writeInt(score);
+                snake.Snake.frame.serverOut(String.format("Score update for snake %d", id));
             }
         } catch (IOException e)
         {
-            
+            snake.Snake.frame.serverOut("Error setting score");
         }
     }
     
@@ -128,15 +147,17 @@ public class SnakeServer extends Thread
             out1.writeInt(6); //Command ID
             out1.writeInt(id);
             out1.writeLong(l);
+            snake.Snake.frame.serverOut("Sent game lost code to client 1");
             if (SnakeGame.GAME_TYPE == 4)
             {
                 out2.writeInt(6); //Command ID
                 out2.writeInt(id);
                 out2.writeLong(l);
+                snake.Snake.frame.serverOut("Sent game lost code to client 2");
             }
         } catch (IOException e)
         {
-            
+            snake.Snake.frame.serverOut("Error sending lost code");
         }
     }
     
@@ -147,15 +168,17 @@ public class SnakeServer extends Thread
             out1.writeInt(5); //Command ID
             out1.writeInt(SnakeGame.GAME_TYPE);
             out1.writeLong(s);
+            snake.Snake.frame.serverOut("Sent start game code to client 1");
             if (SnakeGame.GAME_TYPE == 4)
             {
                 out2.writeInt(5); //Command ID
                 out2.writeInt(SnakeGame.GAME_TYPE);
                 out2.writeLong(s);
+                snake.Snake.frame.serverOut("Sent start game code to client 2");
             }
-            System.out.println("started");
         } catch (IOException e)
         {
+            snake.Snake.frame.serverOut("Error sending start game code");
             e.printStackTrace();
         }
     }
@@ -210,7 +233,7 @@ public class SnakeServer extends Thread
             }
         } catch (IOException e)
         {
-            
+            snake.Snake.frame.serverOut("Error sending tiles");
         }
     }
 }
