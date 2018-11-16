@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package snake;
+package snake.server;
 
 import java.awt.Graphics;
 import java.awt.*;
@@ -14,7 +9,7 @@ import java.awt.*;
  */
 public class SnakeFood {
     
-    public static Point pos;
+    public Point pos;
     public Color color = Color.BLACK;
     boolean isEaten;
     
@@ -28,8 +23,8 @@ public class SnakeFood {
         int randy;
         while(true)
         {
-            randx = (int)(Math.random()*SnakeSettings.GRID_SIZE.width);
-            randy = (int)(Math.random()*SnakeSettings.GRID_SIZE.height);
+            randx = (int)(Math.random()*snake.SnakeSettings.GRID_SIZE.width);
+            randy = (int)(Math.random()*snake.SnakeSettings.GRID_SIZE.height);
             if(SnakeGame.collisions[randy][randx] == null)
             {
                 pos = new Point(randx,randy); 
@@ -39,10 +34,12 @@ public class SnakeFood {
         }
     }
     
+    /*
     public void draw(Graphics g)
     {
         SnakeView.setTile(g, color, pos.x, pos.y);
     }
+    */
     
     public void arrayCheck()
     {

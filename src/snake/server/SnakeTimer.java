@@ -1,4 +1,4 @@
-package snake;
+package snake.server;
 
 import javax.swing.SwingWorker;
 import java.time.Instant;

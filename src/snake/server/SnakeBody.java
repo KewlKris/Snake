@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package snake;
+package snake.server;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
-import static snake.SnakeGame.collisions;
 
 /**
  *
@@ -18,11 +13,13 @@ abstract public class SnakeBody
     SnakeSegment child;
     public int direction;
     protected Point pos = new Point(0,0);
-    public Color color = Color.BLACK;
+    public Color color;
     boolean hasChild = false;
     boolean delayed;
     public int number;
+    public int keyBinding;
     
+    /*
     public void draw(Graphics g)
     {
         SnakeView.setTile(g, color, pos.x, pos.y);
@@ -31,6 +28,7 @@ abstract public class SnakeBody
             child.draw(g);
         }
     }
+    */
     
     public void move()
     {
@@ -77,7 +75,7 @@ abstract public class SnakeBody
             return;
         }
         
-        SnakeSegment c = new SnakeSegment(this, true);
+        SnakeSegment c = new SnakeSegment(this, color, true);
         setChild(c);
     }
     
@@ -102,10 +100,24 @@ abstract public class SnakeBody
     {
         if (delayed)
             return;
-        collisions[pos.y][pos.x] = Grid.SnakeID;
+        SnakeGame.collisions[pos.y][pos.x] = Grid.SnakeID;
         if(hasChild)
         {
             child.arrayCheck();
         }
+    }
+    
+    public ArrayList<Point> getPos(ArrayList<Point> a)
+    {
+        if (a == null)
+        {
+            a = new ArrayList<Point>();
+        }
+        
+        a.add(pos);
+        if (hasChild)
+            child.getPos(a);
+        
+        return a;
     }
 }
