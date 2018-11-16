@@ -70,12 +70,16 @@ public class SnakeView
             
     }
     
-    public static void drawScore(Graphics g, int num, Point pos)
+    public static void drawScore(Graphics g, int num, Point pos, int id)
     {
         g.setColor(Color.BLACK);
         g.setFont(MAIN_FONT);
         //40,30
-        g.drawString("Score: " + Integer.toString(num), pos.x, pos.y);
+        if(id == 1)
+            g.drawString("Red Score: " + Integer.toString(num), pos.x, pos.y);
+        else
+            g.drawString("Blue Score: " + Integer.toString(num), pos.x, pos.y);
+        
     }
     /**
      * Draws the time to the canvas.
