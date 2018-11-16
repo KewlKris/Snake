@@ -32,6 +32,7 @@ public class SnakeGame
     
     public static void startGame(int type, int p)
     {
+        resetVars();
         port = p;
         GAME_TYPE = type;
         
@@ -124,8 +125,18 @@ public class SnakeGame
     
     public static void stopGame()
     {
+        STATUS = WAITING_TO_START;
         gameInProgress = false;
         timer.cancel(true);
+    }
+    
+    public static void resetVars()
+    {
+        gameInProgress = false;
+        collisions = new Grid[snake.SnakeSettings.GRID_SIZE.height][snake.SnakeSettings.GRID_SIZE.width];
+        score = 0;
+        score2 = 0;
+        STATUS = WAITING_TO_START;
     }
     
     private static void delay(float seconds)

@@ -33,7 +33,9 @@ public class SnakeServerListener extends Thread
             }
         } catch (IOException e)
         {
-            e.printStackTrace();
+            //A client disconnected
+            SnakeGame.stopGame();
+            //e.printStackTrace();
         }
     }
 }

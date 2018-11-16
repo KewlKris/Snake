@@ -138,6 +138,56 @@ public class SnakeHead extends SnakeBody
     
     public boolean changeDirection(int i)
     {
+        if (SnakeGame.GAME_TYPE != SnakeGame.MULTI_SAME_SCREEN) //If key doesn't matter
+        {
+            switch(i)
+            {
+                case KeyEvent.VK_UP:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_DOWN:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_LEFT:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_RIGHT:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+                case KeyEvent.VK_ADD:
+                    appendChild();
+                    break;
+                case KeyEvent.VK_W:
+                    if (lastTickedDirection == DOWN)
+                        break;
+                    direction = UP;
+                    return true;
+                case KeyEvent.VK_S:
+                    if (lastTickedDirection == UP)
+                        break;
+                    direction = DOWN;
+                    return true;
+                case KeyEvent.VK_A:
+                    if (lastTickedDirection == RIGHT)
+                        break;
+                    direction = LEFT;
+                    return true;
+                case KeyEvent.VK_D:
+                    if (lastTickedDirection == LEFT)
+                        break;
+                    direction = RIGHT;
+                    return true;
+            }
+            return true;
+        }
         if (super.keyBinding == 1)
         {
             switch(i)

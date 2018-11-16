@@ -31,6 +31,7 @@ public class SnakeGame
         startTime = Instant.ofEpochMilli(strtTme);
         
         STATUS = IN_PROGRESS;
+        snake.Snake.frame.clientOut(String.format("Started game of type %d at time %d", type, strtTme));
     }
     
     public static void drawTiles(Graphics g)
@@ -69,11 +70,24 @@ public class SnakeGame
     
     public static void stopGame()
     {
+        //Kill all connections
+        SnakeClient.closeAll();
+        
+        STATUS = WAITING_TO_START;
         Instant currentTime = Instant.now();
         finalTime = (currentTime.toEpochMilli() - startTime.toEpochMilli())/1000d;
         gameInProgress = false;
         snake.Snake.frame.startButton.setEnabled(true);
         snake.Snake.frame.stopButton.setEnabled(false);
+    }
+    
+    public static void resetVars()
+    {
+        gameInProgress = false;
+        activeTiles = new snake.SnakeTile[0];
+        score = 0;
+        score2 = 0;
+        STATUS = WAITING_TO_START;
     }
     
     private static void delay(float seconds)

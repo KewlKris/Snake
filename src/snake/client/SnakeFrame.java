@@ -1,6 +1,7 @@
 package snake.client;
 
 import java.awt.event.*;
+import javax.swing.*;
 import java.time.Instant;
 
 public class SnakeFrame extends javax.swing.JFrame
@@ -9,6 +10,20 @@ public class SnakeFrame extends javax.swing.JFrame
     {
         initComponents();
     }
+    
+    public void clientOut(String text)
+    {
+        clientOut.setText(clientOut.getText() + text + '\n');
+        JScrollBar bar = clientScroll.getVerticalScrollBar();
+        bar.setValue(bar.getMaximum());
+    }
+    public void serverOut(String text)
+    {
+        serverOut.setText(serverOut.getText() + text + '\n');
+        JScrollBar bar = serverScroll.getVerticalScrollBar();
+        bar.setValue(bar.getMaximum());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -20,8 +35,8 @@ public class SnakeFrame extends javax.swing.JFrame
         frame_canvas = new SnakeCanvas();
         startButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        clientScroll = new javax.swing.JScrollPane();
+        clientOut = new javax.swing.JTextArea();
         setTab = new javax.swing.JPanel();
         setPanel = new javax.swing.JPanel();
         multiButton = new javax.swing.JRadioButton();
@@ -34,6 +49,10 @@ public class SnakeFrame extends javax.swing.JFrame
         singleButton = new javax.swing.JRadioButton();
         cpuButton = new javax.swing.JCheckBox();
         sameButton = new javax.swing.JRadioButton();
+        pathLabel = new javax.swing.JLabel();
+        pathBox = new javax.swing.JComboBox<>();
+        serverScroll = new javax.swing.JScrollPane();
+        serverOut = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -60,9 +79,10 @@ public class SnakeFrame extends javax.swing.JFrame
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        clientOut.setEditable(false);
+        clientOut.setColumns(20);
+        clientOut.setRows(5);
+        clientScroll.setViewportView(clientOut);
 
         javax.swing.GroupLayout gameTabLayout = new javax.swing.GroupLayout(gameTab);
         gameTab.setLayout(gameTabLayout);
@@ -77,7 +97,7 @@ public class SnakeFrame extends javax.swing.JFrame
                             .addComponent(startButton)
                             .addComponent(stopButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(clientScroll)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         gameTabLayout.setVerticalGroup(
@@ -91,7 +111,7 @@ public class SnakeFrame extends javax.swing.JFrame
                         .addComponent(startButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(stopButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,6 +167,10 @@ public class SnakeFrame extends javax.swing.JFrame
         sameButton.setText("Same Screen");
         sameButton.setEnabled(false);
 
+        pathLabel.setText("Pathfinder:");
+
+        pathBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "A*" }));
+
         javax.swing.GroupLayout setPanelLayout = new javax.swing.GroupLayout(setPanel);
         setPanel.setLayout(setPanelLayout);
         setPanelLayout.setHorizontalGroup(
@@ -154,29 +178,37 @@ public class SnakeFrame extends javax.swing.JFrame
             .addGroup(setPanelLayout.createSequentialGroup()
                 .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(setPanelLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(singleButton))
+                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(singleButton))
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(cpuButton))
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(pathLabel)))
+                        .addGap(18, 18, 18)
+                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(multiButton)
+                            .addComponent(sameButton))
+                        .addGap(15, 15, 15)
+                        .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addComponent(joinButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(portLabel)
+                                .addGap(38, 38, 38)
+                                .addComponent(portField))
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addComponent(hostButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ipLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(setPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cpuButton)))
-                .addGap(18, 18, 18)
-                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(multiButton)
-                    .addComponent(sameButton))
-                .addGap(15, 15, 15)
-                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(setPanelLayout.createSequentialGroup()
-                        .addComponent(joinButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(portLabel)
-                        .addGap(38, 38, 38)
-                        .addComponent(portField))
-                    .addGroup(setPanelLayout.createSequentialGroup()
-                        .addComponent(hostButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(ipLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pathBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
         setPanelLayout.setVerticalGroup(
@@ -196,8 +228,18 @@ public class SnakeFrame extends javax.swing.JFrame
                     .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpuButton)
                     .addComponent(sameButton))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pathLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pathBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        serverOut.setEditable(false);
+        serverOut.setColumns(20);
+        serverOut.setRows(5);
+        serverOut.setBorder(javax.swing.BorderFactory.createTitledBorder("Server Output"));
+        serverScroll.setViewportView(serverOut);
 
         javax.swing.GroupLayout setTabLayout = new javax.swing.GroupLayout(setTab);
         setTab.setLayout(setTabLayout);
@@ -205,15 +247,21 @@ public class SnakeFrame extends javax.swing.JFrame
             setTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(setTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(setTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(setTabLayout.createSequentialGroup()
+                        .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(serverScroll, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         setTabLayout.setVerticalGroup(
             setTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(setTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(serverScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Settings", setTab);
@@ -368,6 +416,8 @@ public class SnakeFrame extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea clientOut;
+    private javax.swing.JScrollPane clientScroll;
     private javax.swing.JCheckBox cpuButton;
     private java.awt.Canvas frame_canvas;
     private javax.swing.JPanel gameTab;
@@ -377,16 +427,18 @@ public class SnakeFrame extends javax.swing.JFrame
     private javax.swing.JLabel ipLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JRadioButton joinButton;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JRadioButton multiButton;
+    private javax.swing.JComboBox<String> pathBox;
+    private javax.swing.JLabel pathLabel;
     private javax.swing.ButtonGroup playerGroup;
     private javax.swing.JTextField portField;
     private javax.swing.JLabel portLabel;
     private javax.swing.JRadioButton sameButton;
+    private javax.swing.JTextArea serverOut;
+    private javax.swing.JScrollPane serverScroll;
     private javax.swing.JPanel setPanel;
     private javax.swing.JPanel setTab;
     private javax.swing.JRadioButton singleButton;

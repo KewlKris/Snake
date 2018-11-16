@@ -15,6 +15,8 @@ public class SnakeServer extends Thread
     public static DataInputStream in1, in2;
     public static DataOutputStream out1, out2;
     
+    public static ServerSocket server;
+    
     int gametype2, port2;
     
     public SnakeServer(int g, int p)
@@ -27,11 +29,30 @@ public class SnakeServer extends Thread
         startServer(gametype2, port2);
     }
     
+    public static void closeAll()
+    {
+        try
+        {
+            in1.close();
+            out1.close();
+            client1.close();
+            in2.close();
+            out2.close();
+            client2.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public static void startServer(int gametype, int port)
     {
         try
         {
-            ServerSocket server = new ServerSocket(port);
+            if (server == null)
+            {
+                server = new ServerSocket(port);
+            }
             client1 = server.accept();
             in1 = new DataInputStream(client1.getInputStream());
             out1 = new DataOutputStream(client1.getOutputStream());
@@ -55,6 +76,24 @@ public class SnakeServer extends Thread
             sendStart(Instant.now().toEpochMilli());
             
             
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void clientLeft()
+    {
+        try
+        {
+            if (client1 != null)
+            {
+                out1.writeInt(8);
+            }
+            if (client2 != null)
+            {
+                out2.writeInt(8);
+            }
         } catch (IOException e)
         {
             e.printStackTrace();
