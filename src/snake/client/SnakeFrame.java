@@ -17,11 +17,20 @@ public class SnakeFrame extends javax.swing.JFrame
         JScrollBar bar = clientScroll.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
     }
+    public void flushClient()
+    {
+        clientOut.setText("");
+    }
+    
     public void serverOut(String text)
     {
         serverOut.setText(serverOut.getText() + text + '\n');
         JScrollBar bar = serverScroll.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
+    }
+    public void flushServer()
+    {
+        serverOut.setText("");
     }
     
     @SuppressWarnings("unchecked")
@@ -327,6 +336,9 @@ public class SnakeFrame extends javax.swing.JFrame
     }//GEN-LAST:event_singleButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        flushClient();
+        flushServer();
+        
         startButton.setEnabled(false);
         frame_canvas.requestFocus();
         stopButton.setEnabled(true);
